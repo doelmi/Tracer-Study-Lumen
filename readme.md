@@ -81,6 +81,13 @@ http://localhost:8000/mahasiswa/{nim}?api_token={api_token}
 http://localhost:8000/mahasiswa?api_token={api_token}
 ```
 
+7. Get Semua User Data
+<br>Method : Get
+<br>Parameter : 
+```
+http://localhost:8000/user?api_token={api_token}
+```
+
 {api_token} didapatkan dari proses login
 
 
