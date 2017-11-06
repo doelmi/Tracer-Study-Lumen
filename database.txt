@@ -1,0 +1,21 @@
+Tabel Pengguna
+1. id
+2. username
+3. password
+4. email
+5. api_token
+
+Tabel Mahasiswa
+1. NIM
+2. Nama
+3. Alamat
+4. No Telepon
+
+Tabel Pekerjaan
+1. Status Pekerjaan
+
+Tabel Akademik
+1. Program Studi
+2. Tahun Angkatan Wisuda
+3. Tanggal Lulus
+4. Nilai IPK
