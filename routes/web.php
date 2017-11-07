@@ -30,6 +30,7 @@ $router->get('/', function () use ($router) {
 $router->post('/login', 'LoginController@index');
 $router->post('/register', 'UserController@register');
 $router->get('/user/{id}', ['middleware' => 'auth', 'uses' => 'UserController@get_user']);
+$router->get('/user', ['middleware' => 'auth', 'uses' => 'UserController@get_all_user']);
 
 //Mahasiswa
 $router->post('/mahasiswa', ['middleware' => 'auth', 'uses' => 'MahasiswaController@set_mhs']);

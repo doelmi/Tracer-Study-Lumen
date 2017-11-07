@@ -50,4 +50,20 @@ class UserController extends Controller
           return response($res);
         }
     }
+
+    public function get_all_user(Request $request)
+    {
+        $user = User::all();
+        if ($user) {
+              $res['success'] = true;
+              $res['message'] = $user;
+        
+              return response($res);
+        }else{
+          $res['success'] = false;
+          $res['message'] = 'Cannot find user!';
+        
+          return response($res);
+        }
+    }
 }
