@@ -25,14 +25,14 @@ php -S 0.0.0.0:8000 -t public
 ## Routing
 1. Login 
 <br>Method : Post
-<br>Parameter : Email, Password
+<br>Parameter : email, password
 ```
 http://localhost:8000/login
 ```
 
 2. Register
 <br>Method : Post
-<br>Parameter : Username, Email, Password
+<br>Parameter : username, email, password
 ```
 http://localhost:8000/register
 ```
