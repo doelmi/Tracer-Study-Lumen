@@ -23,11 +23,12 @@ The Lumen framework is open-sourced software licensed under the [MIT license](ht
 
 
 # Dokumentasi dari Doelmi
-untuk menjalankan gunakan perintah berikut : 
-
+## Dependencies Composer
+Untuk update dependencies, jalankan perintah berikut:
 ```
-php -S 0.0.0.0:8000 -t public
+composer update
 ```
+*diperlukasn sambungan internet
 
 ## Database
 edit pengaturan database di file .env
@@ -35,6 +36,13 @@ edit pengaturan database di file .env
 untuk migrasi database, jalankan perintah berikut:
 ```
 php artisan migrate
+```
+
+## Running
+untuk menjalankan gunakan perintah berikut : 
+
+```
+php -S 0.0.0.0:8000 -t public
 ```
 
 
