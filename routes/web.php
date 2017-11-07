@@ -15,6 +15,10 @@
 //    return $router->app->version();
 //});
 
+$router->options('{all:.*}', function () {
+  return '';
+});
+
 $router->get('/', function () use ($router) {
     $res['success'] = true;
     $res['result'] = "Hello there welcome to web api using lumen for Tracer Study! ";
