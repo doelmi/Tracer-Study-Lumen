@@ -48,7 +48,7 @@ http://localhost:8000/user/{id}?api_token={api_token}
 <br>Method : Post
 <br>Parameter : nim, nama, alamat, no_telepon
 ```
-http://localhost:8000/mahasiswa
+http://localhost:8000/mahasiswa?api_token={api_token}
 ```
 
 5. Get Mahasiswa berdasarkan NIM
