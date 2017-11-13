@@ -31,6 +31,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
     $router->post('/login', 'LoginController@index');
     $router->post('/register', 'UserController@register');
     $router->get('/user/{id}', ['middleware' => 'auth', 'uses' => 'UserController@get_user']);
+    $router->get('/user/loged_in/{token}', ['middleware' => 'auth', 'uses' => 'UserController@get_loged_in_user']);
     $router->get('/user', ['middleware' => 'auth', 'uses' => 'UserController@get_all_user']);
 
     $router->group(['prefix' => 'mahasiswa',], function($router) {
