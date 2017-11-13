@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableContract
+class Akademik extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable;
-
+    
     public $primaryKey = 'nim';
     
-    public $table = 'mahasiswa';
+    public $table = 'akademik';
     
     public $incrementing = false;
     /**
@@ -23,7 +23,7 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
      * @var array
      */
     protected $fillable = [
-        'nim', 'nama', 'alamat', 'no_telepon', 'foto'
+        'nim', 'prodi', 'angkatan_wisuda', 'tanggal_lulus', 'nilai_ipk'
     ];
 
     /**
