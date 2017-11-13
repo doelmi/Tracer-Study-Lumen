@@ -28,7 +28,7 @@ php -S 0.0.0.0:8000 -t public
     Lumen Information 
     <br>Method : Get
     <br>Parameter : 
-    <br>Address : http://localhost:8000/api/v1/
+    <br>Address : http://localhost:8000/api/v1
   </li>
   <li>
     Login 
