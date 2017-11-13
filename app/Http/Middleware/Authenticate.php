@@ -41,12 +41,12 @@ class Authenticate {
                 if ($check_token == null) {
                     $res['success'] = false;
                     $res['message'] = 'Permission not allowed!';
-                    return response($res);
+                    return response($res, 401);
                 }
             } else {
                 $res['success'] = false;
                 $res['message'] = 'Login please!';
-                return response($res);
+                return response($res, 401);
             }
         }
         return $next($request);

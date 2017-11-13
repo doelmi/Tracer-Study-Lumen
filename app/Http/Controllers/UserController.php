@@ -27,7 +27,7 @@ class UserController extends Controller
         }else{
             $res['success'] = false;
             $res['message'] = 'Failed to register!';
-            return response($res);
+            return response($res, 400);
         }
     }
     /**
@@ -47,7 +47,7 @@ class UserController extends Controller
           $res['success'] = false;
           $res['message'] = 'Cannot find user!';
         
-          return response($res);
+          return response($res, 400);
         }
     }
 
@@ -63,7 +63,7 @@ class UserController extends Controller
           $res['success'] = false;
           $res['message'] = 'Cannot find user!';
         
-          return response($res);
+          return response($res, 400);
         }
     }
 }

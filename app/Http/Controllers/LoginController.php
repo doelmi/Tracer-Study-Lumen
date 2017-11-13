@@ -20,7 +20,7 @@ class LoginController extends Controller {
         if (!$login) {
             $res['success'] = false;
             $res['message'] = 'Your email or password incorrect!';
-            return response($res);
+            return response($res, 401);
         } else {
             if ($hasher->check($password, $login->password)) {
                 $api_token = sha1($email.time().$password);
@@ -32,9 +32,9 @@ class LoginController extends Controller {
                     return response($res);
                 }
             } else {
-                $res['success'] = true;
+                $res['success'] = false;
                 $res['message'] = 'You email or password incorrect!';
-                return response($res);
+                return response($res, 401);
             }
         }
     }
