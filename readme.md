@@ -23,25 +23,37 @@ php -S 0.0.0.0:8000 -t public
 
 
 ## Routing
-1. Login 
-<br>Method : Post
-<br>Parameter : email, password
-```
-http://localhost:8000/login
-```
+<ul>
+  <li>
+    Login 
+    <br>Method : Post
+    <br>Parameter : email, password
+    ```
+    http://localhost:8000/api/v1/login
+    ```
+  </li>
+</ul>
+
 
 2. Register
 <br>Method : Post
 <br>Parameter : username, email, password
 ```
-http://localhost:8000/register
+http://localhost:8000/api/v1/register
 ```
 
 3. Get User Data berdasarkan ID
 <br>Method : Get
 <br>Parameter : 
 ```
-http://localhost:8000/user/{id}?api_token={api_token}
+http://localhost:8000/api/v1/user/{id}?api_token={api_token}
+```
+
+7. Get Semua User Data
+<br>Method : Get
+<br>Parameter : 
+```
+http://localhost:8000/api/v1/user?api_token={api_token}
 ```
 
 4. Insert Mahasiswa
@@ -65,12 +77,7 @@ http://localhost:8000/mahasiswa/{nim}?api_token={api_token}
 http://localhost:8000/mahasiswa?api_token={api_token}
 ```
 
-7. Get Semua User Data
-<br>Method : Get
-<br>Parameter : 
-```
-http://localhost:8000/user?api_token={api_token}
-```
+
 
 {api_token} didapatkan dari proses login
 
