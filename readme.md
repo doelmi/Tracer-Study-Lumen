@@ -23,61 +23,98 @@ php -S 0.0.0.0:8000 -t public
 
 
 ## Routing
-<ul>
+<ol>
+   <li>
+    Lumen Information 
+    <br>Method : Get
+    <br>Parameter : 
+    <br>Address : http://localhost:8000/api/v1/
+  </li>
   <li>
     Login 
     <br>Method : Post
     <br>Parameter : email, password
-    ```
-    http://localhost:8000/api/v1/login
-    ```
+    <br>Address : http://localhost:8000/api/v1/login
   </li>
-</ul>
-
-
-2. Register
-<br>Method : Post
-<br>Parameter : username, email, password
-```
-http://localhost:8000/api/v1/register
-```
-
-3. Get User Data berdasarkan ID
-<br>Method : Get
-<br>Parameter : 
-```
-http://localhost:8000/api/v1/user/{id}?api_token={api_token}
-```
-
-7. Get Semua User Data
-<br>Method : Get
-<br>Parameter : 
-```
-http://localhost:8000/api/v1/user?api_token={api_token}
-```
-
-4. Insert Mahasiswa
-<br>Method : Post
-<br>Parameter : nim, nama, alamat, no_telepon
-```
-http://localhost:8000/mahasiswa?api_token={api_token}
-```
-
-5. Get Mahasiswa berdasarkan NIM
-<br>Method : Get
-<br>Parameter : 
-```
-http://localhost:8000/mahasiswa/{nim}?api_token={api_token}
-```
-
-6. Get Semua Mahasiswa
-<br>Method : Get
-<br>Parameter : 
-```
-http://localhost:8000/mahasiswa?api_token={api_token}
-```
-
-
+  <li>
+    Register
+    <br>Method : Post
+    <br>Parameter : username, email, password
+    <br>Address : http://localhost:8000/api/v1/register
+  </li>
+  <li>
+    Get User Data berdasarkan ID
+    <br>Method : Get
+    <br>Parameter : 
+    <br>Address : http://localhost:8000/api/v1/user/{id}?api_token={api_token}
+  </li>
+  <li>
+    Get Semua User Data
+    <br>Method : Get
+    <br>Parameter : 
+    <br>Address : http://localhost:8000/api/v1/user?api_token={api_token}
+  </li>
+  <li>
+     Insert Mahasiswa Pribadi
+    <br>Method : Post
+    <br>Parameter : nim, nama, alamat, no_telepon, foto
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi?api_token={api_token}
+  </li>
+  <li>
+     Update Mahasiswa Pribadi
+    <br>Method : Put
+    <br>Parameter : nim, nama, alamat, no_telepon, foto
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi/{nim}?api_token={api_token}
+  </li>
+  <li>
+     Delete Mahasiswa Pribadi
+    <br>Method : Delete
+    <br>Parameter : 
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi/{nim}?api_token={api_token}
+  </li>
+  <li>
+      Get Mahasiswa Pribadi berdasarkan NIM
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi/{nim}?api_token={api_token}
+  </li>
+  <li>
+      Get Semua Mahasiswa Pribadi
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi?api_token={api_token}
+  </li>
+  <li>
+     Insert Mahasiswa Akademik
+    <br>Method : Post
+    <br>Parameter : nim, prodi, angkatan_wisuda, tanggal_lulus, nilai_ipk
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik?api_token={api_token}
+  </li>
+  <li>
+     Update Mahasiswa Akademik
+    <br>Method : Put
+    <br>Parameter : nim, prodi, angkatan_wisuda, tanggal_lulus, nilai_ipk
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik/{nim}?api_token={api_token}
+  </li>
+  <li>
+     Delete Mahasiswa Akademik
+    <br>Method : Delete
+    <br>Parameter : 
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik/{nim}?api_token={api_token}
+  </li>
+  <li>
+      Get Mahasiswa Akademik berdasarkan NIM
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik/{nim}?api_token={api_token}
+  </li>
+  <li>
+      Get Semua Mahasiswa Akademik
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik?api_token={api_token}
+  </li>
+</ol>
 
 {api_token} didapatkan dari proses login
 
