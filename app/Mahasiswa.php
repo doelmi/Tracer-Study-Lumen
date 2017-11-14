@@ -32,6 +32,12 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
      * @var array
      */
     protected $hidden = [
-        
+        'foto'
     ];
+    
+    protected $appends = ['foto_src'];
+    
+    public function getFotoSrcAttribute () {
+        return url($this->foto);
+    }
 }

@@ -8,23 +8,26 @@ use App\Akademik;
 
 class MahasiswaController extends Controller {
 
+    public function base64ToImage($imageData, $nim) {
+        list($type, $imageData) = explode(';', $imageData);
+        list(, $extension) = explode('/', $type);
+        list(, $imageData) = explode(',', $imageData);
+        $fileName = $nim . '_' . uniqid() . '.' . $extension;
+        $path = "assets/img/$fileName";
+        $imageData = base64_decode($imageData);
+        file_put_contents($path, $imageData);
+
+        $link_path = $path;
+        return $link_path;
+    }
+
     public function set_mhs(Request $request) {
         $nim = $request->input('nim');
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
         $no_telepon = $request->input('no_telepon');
-        $foto = "";
-
-        //upload file
-        if ($request->file('foto')) {
-            $foto = $request->file('foto')->getClientOriginalName();
-            $foto = uniqid() . '_' . $foto;
-            $path = 'uploads' . DIRECTORY_SEPARATOR . 'user_files' . DIRECTORY_SEPARATOR . 'cnic' . DIRECTORY_SEPARATOR;
-            $destinationPath = public_path($path); // upload path
-            File::makeDirectory($destinationPath, 0777, true, true);
-            $request->file('foto')->move($destinationPath, $foto);
-            //upload file end
-        }
+        $foto = $request->input('foto');
+        $foto = $this->base64ToImage($foto, $nim);
 
         $set = Mahasiswa::create([
                     'nim' => $nim,
@@ -45,29 +48,25 @@ class MahasiswaController extends Controller {
     }
 
     public function put_mhs(Request $request, $nim) {
+        $new_nim = $request->input('nim');
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
         $no_telepon = $request->input('no_telepon');
-        $foto = "";
+        $foto = $request->input('foto', '');
 
-        //upload file
-        if ($request->file('foto')) {
-            $foto = $request->file('foto')->getClientOriginalName();
-            $foto = uniqid() . '_' . $foto;
-            $path = 'uploads' . DIRECTORY_SEPARATOR . 'user_files' . DIRECTORY_SEPARATOR . 'cnic' . DIRECTORY_SEPARATOR;
-            $destinationPath = public_path($path); // upload path
-            File::makeDirectory($destinationPath, 0777, true, true);
-            $request->file('foto')->move($destinationPath, $foto);
-            //upload file end
+        if (strlen($foto) != 0) {
+            $foto = $this->base64ToImage($foto, $nim);
         }
 
         $mhs = Mahasiswa::find($nim);
 
-        $mhs->nim = $nim;
+        $mhs->nim = $new_nim;
         $mhs->nama = $nama;
         $mhs->alamat = $alamat;
         $mhs->no_telepon = $no_telepon;
-        $mhs->foto = $foto;
+        if (strlen($foto) != 0) {
+            $mhs->foto = $foto;
+        }
 
         if ($mhs->save()) {
             $res['success'] = true;
