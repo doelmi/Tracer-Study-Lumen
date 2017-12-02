@@ -58,7 +58,7 @@ class UserController extends Controller {
         }
     }
 
-    public function get_loged_in_user(Request $request, $token) {
+    public function get_logged_in_user(Request $request, $token) {
         $user = User::where('api_token', $token)->first();
         if ($user) {
             $res['success'] = true;
