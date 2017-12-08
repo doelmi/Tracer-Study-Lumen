@@ -16,7 +16,7 @@ class MahasiswaController extends Controller {
         $foto = "";
 
         //upload file
-        if ($request->file('foto')) {
+        if ($request->hasFile('foto')) {
             $foto = $request->file('foto')->getClientOriginalName();
             $foto = uniqid() . '_' . $foto;
             $path = 'uploads' . DIRECTORY_SEPARATOR . 'user_files' . DIRECTORY_SEPARATOR . 'cnic' . DIRECTORY_SEPARATOR;
@@ -31,7 +31,7 @@ class MahasiswaController extends Controller {
                     'nama' => $nama,
                     'alamat' => $alamat,
                     'no_telepon' => $no_telepon,
-                    'foto' => $foto
+                    // 'foto' => $foto
         ]);
         if ($set) {
             $res['success'] = true;
