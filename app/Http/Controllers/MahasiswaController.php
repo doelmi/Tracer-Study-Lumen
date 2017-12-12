@@ -26,15 +26,30 @@ class MahasiswaController extends Controller {
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
         $no_telepon = $request->input('no_telepon');
+<<<<<<< HEAD
         $foto = $request->input('foto');
         $foto = $this->base64ToImage($foto, $nim);
+=======
+        $foto = "";
+
+        //upload file
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto')->getClientOriginalName();
+            $foto = uniqid() . '_' . $foto;
+            $path = 'uploads' . DIRECTORY_SEPARATOR . 'user_files' . DIRECTORY_SEPARATOR . 'cnic' . DIRECTORY_SEPARATOR;
+            $destinationPath = public_path($path); // upload path
+            File::makeDirectory($destinationPath, 0777, true, true);
+            $request->file('foto')->move($destinationPath, $foto);
+            //upload file end
+        }
+>>>>>>> c08e6d24b5847cdfdf1f132127d9634b378202f5
 
         $set = Mahasiswa::create([
                     'nim' => $nim,
                     'nama' => $nama,
                     'alamat' => $alamat,
                     'no_telepon' => $no_telepon,
-                    'foto' => $foto
+                    // 'foto' => $foto
         ]);
         if ($set) {
             $res['success'] = true;
