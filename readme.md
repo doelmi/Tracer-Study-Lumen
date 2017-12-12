@@ -120,6 +120,36 @@ php -S 0.0.0.0:8000 -t public
       <br>Parameter : 
       <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik?api_token={api_token}
   </li>
+  <li>
+     Insert Mahasiswa Foto
+    <br>Method : Post
+    <br>Parameter : nim, foto
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/foto?api_token={api_token}
+  </li>
+  <li>
+     Update Mahasiswa Foto
+    <br>Method : Put
+    <br>Parameter : foto
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/foto/{nim}?api_token={api_token}
+  </li>
+  <li>
+     Delete Mahasiswa Foto
+    <br>Method : Delete
+    <br>Parameter : 
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/foto/{nim}?api_token={api_token}
+  </li>
+  <li>
+      Get Mahasiswa Foto berdasarkan NIM
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/foto/{nim}?api_token={api_token}
+  </li>
+  <li>
+      Get Semua Mahasiswa Foto
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/foto?api_token={api_token}
+  </li>
 </ol>
 
 {api_token} didapatkan dari proses login
