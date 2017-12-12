@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mahasiswa;
 use App\Akademik;
+use App\Foto;
 
 class MahasiswaController extends Controller {
 
@@ -26,30 +27,12 @@ class MahasiswaController extends Controller {
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
         $no_telepon = $request->input('no_telepon');
-<<<<<<< HEAD
-        $foto = $request->input('foto');
-        $foto = $this->base64ToImage($foto, $nim);
-=======
-        $foto = "";
-
-        //upload file
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto')->getClientOriginalName();
-            $foto = uniqid() . '_' . $foto;
-            $path = 'uploads' . DIRECTORY_SEPARATOR . 'user_files' . DIRECTORY_SEPARATOR . 'cnic' . DIRECTORY_SEPARATOR;
-            $destinationPath = public_path($path); // upload path
-            File::makeDirectory($destinationPath, 0777, true, true);
-            $request->file('foto')->move($destinationPath, $foto);
-            //upload file end
-        }
->>>>>>> c08e6d24b5847cdfdf1f132127d9634b378202f5
 
         $set = Mahasiswa::create([
                     'nim' => $nim,
                     'nama' => $nama,
                     'alamat' => $alamat,
-                    'no_telepon' => $no_telepon,
-                    // 'foto' => $foto
+                    'no_telepon' => $no_telepon
         ]);
         if ($set) {
             $res['success'] = true;
@@ -67,11 +50,6 @@ class MahasiswaController extends Controller {
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
         $no_telepon = $request->input('no_telepon');
-        $foto = $request->input('foto', '');
-
-        if (strlen($foto) != 0) {
-            $foto = $this->base64ToImage($foto, $nim);
-        }
 
         $mhs = Mahasiswa::find($nim);
 
@@ -79,9 +57,6 @@ class MahasiswaController extends Controller {
         $mhs->nama = $nama;
         $mhs->alamat = $alamat;
         $mhs->no_telepon = $no_telepon;
-        if (strlen($foto) != 0) {
-            $mhs->foto = $foto;
-        }
 
         if ($mhs->save()) {
             $res['success'] = true;
@@ -224,6 +199,95 @@ class MahasiswaController extends Controller {
         if ($akademik) {
             $res['success'] = true;
             $res['message'] = $akademik;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Akademik!';
+
+            return response($res, 400);
+        }
+    }
+
+    public function set_foto(Request $request) {
+        $nim = $request->input('nim');
+        $foto = $request->input('foto');
+
+        if (strlen($foto) != 0) {
+            $foto = $this->base64ToImage($foto, $nim);
+        }
+
+        $set = Foto::create([
+                    'nim' => $nim,
+                    'foto' => $foto
+        ]);
+        if ($set) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Menyimpan!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Menyimpan!';
+            return response($res, 400);
+        }
+    }
+
+    public function put_foto(Request $request, $nim) {
+        $foto = $request->input('foto');
+
+        if (strlen($foto) != 0) {
+            $foto = $this->base64ToImage($foto, $nim);
+        }
+
+        $put = Foto::find($nim);
+
+        $put->foto = $foto;
+
+        if ($put->save()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Memperbarui!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Memperbarui!';
+            return response($res, 400);
+        }
+    }
+
+    public function del_foto(Request $request, $nim) {
+        $mhs_foto = Foto::find($nim);
+
+        if ($mhs_foto->delete()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Menghapus!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Menghapus!';
+            return response($res, 400);
+        }
+    }
+
+    public function get_foto(Request $request, $nim) {
+        $get_foto = Foto::where('nim', $nim)->get();
+        if ($get_foto) {
+            $res['success'] = true;
+            $res['message'] = $get_foto;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Foto!';
+
+            return response($res, 400);
+        }
+    }
+
+    public function get_all_foto(Request $request) {
+        $get_foto = Akademik::all();
+        if ($get_foto) {
+            $res['success'] = true;
+            $res['message'] = $get_foto;
 
             return response($res);
         } else {

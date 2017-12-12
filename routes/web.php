@@ -48,5 +48,12 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->delete('/akademik/{nim}', ['uses' => 'MahasiswaController@del_akademik']);
         $router->get('/akademik/{nim}', ['uses' => 'MahasiswaController@get_akademik']);
         $router->get('/akademik', ['uses' => 'MahasiswaController@get_all_akademik']);
+
+        //Foto
+        $router->post('/foto', ['uses' => 'MahasiswaController@set_foto']);
+        $router->put('/foto/{nim}', ['uses' => 'MahasiswaController@put_foto']);
+        $router->delete('/foto/{nim}', ['uses' => 'MahasiswaController@del_foto']);
+        $router->get('/foto/{nim}', ['uses' => 'MahasiswaController@get_foto']);
+        $router->get('/foto', ['uses' => 'MahasiswaController@get_all_foto']);
     });
 });
