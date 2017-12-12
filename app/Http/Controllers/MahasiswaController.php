@@ -284,7 +284,7 @@ class MahasiswaController extends Controller {
     }
 
     public function get_all_foto(Request $request) {
-        $get_foto = Akademik::all();
+        $get_foto = Foto::all();
         if ($get_foto) {
             $res['success'] = true;
             $res['message'] = $get_foto;
