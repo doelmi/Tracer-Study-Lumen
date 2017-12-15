@@ -63,13 +63,13 @@ php -S 0.0.0.0:8000 -t public
   <li>
      Insert Mahasiswa Pribadi
     <br>Method : Post
-    <br>Parameter : nim, nama, alamat, no_telepon, foto
+    <br>Parameter : nim, nama, alamat, no_telepon
     <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi?api_token={api_token}
   </li>
   <li>
      Update Mahasiswa Pribadi
     <br>Method : Put
-    <br>Parameter : nim, nama, alamat, no_telepon, foto
+    <br>Parameter : nim, nama, alamat, no_telepon
     <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi/{nim}?api_token={api_token}
   </li>
   <li>
