@@ -14,7 +14,7 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
         Authorizable;
 
     public $primaryKey = 'nim';
-    public $table = 'mahasiswa';
+    // public $table = 'mahasiswa';
     public $incrementing = false;
 
     /**
