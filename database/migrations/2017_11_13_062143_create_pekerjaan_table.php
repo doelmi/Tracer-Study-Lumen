@@ -17,7 +17,7 @@ class CreatePekerjaanTable extends Migration
             $table->increments('id');
             $table->string('nim', 12);
             $table->string('status_pekerjaan');
-            $table->string('nama_perusahaan');
+            $table->string('keterangan');
             $table->timestamps();
             $table->softDeletes();
         });

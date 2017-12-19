@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Mahasiswa;
 use App\Akademik;
 use App\Foto;
+use App\Pekerjaan;
 
 class MahasiswaController extends Controller {
 
@@ -292,7 +293,92 @@ class MahasiswaController extends Controller {
             return response($res);
         } else {
             $res['success'] = false;
-            $res['message'] = 'Cannot find Akademik!';
+            $res['message'] = 'Cannot find Foto!';
+
+            return response($res, 400);
+        }
+    }
+
+    public function set_pekerjaan(Request $request) {
+        $nim = $request->input('nim');
+        $status_pekerjaan = $request->input('status_pekerjaan');
+        $keterangan = $request->input('keterangan');
+
+        $set = Pekerjaan::create([
+                    'nim' => $nim,
+                    'status_pekerjaan' => $status_pekerjaan,
+                    'keterangan' => $keterangan
+        ]);
+        if ($set) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Menyimpan!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Menyimpan!';
+            return response($res, 400);
+        }
+    }
+
+    public function put_pekerjaan(Request $request, $nim) {
+        $status_pekerjaan = $request->input('status_pekerjaan');
+        $keterangan = $request->input('keterangan');
+
+        $put = Pekerjaan::find($nim);
+
+        $put->status_pekerjaan = $status_pekerjaan;
+        $put->keterangan = $keterangan;
+
+        if ($put->save()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Memperbarui!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Memperbarui!';
+            return response($res, 400);
+        }
+    }
+
+    public function del_pekerjaan(Request $request, $nim) {
+        $mhs_pekerjaan = Pekerjaan::find($nim);
+
+        if ($mhs_pekerjaan->delete()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Menghapus!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Menghapus!';
+            return response($res, 400);
+        }
+    }
+
+    public function get_pekerjaan(Request $request, $nim) {
+        $get_pekerjaan = Pekerjaan::where('nim', $nim)->get();
+        if ($get_pekerjaan) {
+            $res['success'] = true;
+            $res['message'] = $get_pekerjaan;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Pekerjaan!';
+
+            return response($res, 400);
+        }
+    }
+
+    public function get_all_pekerjaan(Request $request) {
+        $get_pekerjaan = Pekerjaan::all();
+        if ($get_pekerjaan) {
+            $res['success'] = true;
+            $res['message'] = $get_pekerjaan;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Pekerjaan!';
 
             return response($res, 400);
         }
