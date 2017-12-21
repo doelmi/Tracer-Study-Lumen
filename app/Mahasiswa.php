@@ -23,7 +23,7 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
      * @var array
      */
     protected $fillable = [
-        'nim', 'nama', 'alamat', 'no_telepon'
+        'nim', 'nama', 'alamat', 'no_telepon', 'tempat_lahir', 'tanggal_lahir'
     ];
 
     /**

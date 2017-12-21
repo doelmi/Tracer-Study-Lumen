@@ -28,12 +28,16 @@ class MahasiswaController extends Controller {
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
         $no_telepon = $request->input('no_telepon');
+        $tempat_lahir = $request->input('tempat_lahir');
+        $tanggal_lahir = $request->input('tanggal_lahir');
 
         $set = Mahasiswa::create([
                     'nim' => $nim,
                     'nama' => $nama,
                     'alamat' => $alamat,
-                    'no_telepon' => $no_telepon
+                    'no_telepon' => $no_telepon,
+                    'tempat_lahir' => $tempat_lahir,
+                    'tanggal_lahir' => $tanggal_lahir
         ]);
         if ($set) {
             $res['success'] = true;
@@ -51,13 +55,17 @@ class MahasiswaController extends Controller {
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
         $no_telepon = $request->input('no_telepon');
-
+        $tempat_lahir = $request->input('tempat_lahir');
+        $tanggal_lahir = $request->input('tanggal_lahir');
+        
         $mhs = Mahasiswa::find($nim);
 
         $mhs->nim = $new_nim;
         $mhs->nama = $nama;
         $mhs->alamat = $alamat;
         $mhs->no_telepon = $no_telepon;
+        $mhs->tempat_lahir = $tempat_lahir;
+        $mhs->tanggal_lahir = $tanggal_lahir;
 
         if ($mhs->save()) {
             $res['success'] = true;
