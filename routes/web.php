@@ -34,7 +34,14 @@ $router->group(['prefix' => 'api/v1'], function($router) {
     $router->get('/user/logged_in/{token}', ['middleware' => 'auth', 'uses' => 'UserController@get_logged_in_user']);
     $router->get('/user', ['middleware' => 'auth', 'uses' => 'UserController@get_all_user']);
 
+    # yang fitur cari mahasiswa ini nggak perlu login
+    $router->group(['prefix' => 'mahasiswa'], function($router) {
+        # get detail mahasiswa, sak fotonya, sak data-data lainnya
+        $router->get('/detail/{nim}', 'MahasiswaController@get_detail');
+    });
+
     $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth'], function($router) {
+
         //Pribadi
         $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']); //belum fix upload file
         $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']); //belum fix upload file

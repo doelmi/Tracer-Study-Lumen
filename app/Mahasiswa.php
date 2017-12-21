@@ -34,4 +34,19 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
     protected $hidden = [
     ];
 
+    public function akademik()
+    {
+        return $this->hasOne('App\Akademik', 'nim');
+    }
+
+    public function foto()
+    {
+        return $this->hasOne('App\Foto', 'nim');
+    }
+
+    public function pekerjaan()
+    {
+        return $this->hasOne('App\Pekerjaan', 'nim');
+    }
+
 }

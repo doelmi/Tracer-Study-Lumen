@@ -384,4 +384,20 @@ class MahasiswaController extends Controller {
         }
     }
 
+    public function get_detail(Request $request, $nim)
+    {
+        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto')->where('nim', $nim)->firstOrFail();
+        if ($mhs) {
+            $res['success'] = true;
+            $res['message'] = $mhs;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Mahasiswa!';
+
+            return response($res, 400);
+        }
+    }
+
 }

@@ -34,4 +34,9 @@ class Pekerjaan extends Model implements AuthenticatableContract, AuthorizableCo
     protected $hidden = [
         
     ];
+
+    public function getKeteranganAttribute($value)
+    {
+        return json_decode($value);
+    }
 }
