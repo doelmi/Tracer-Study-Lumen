@@ -175,13 +175,13 @@ php -S 0.0.0.0:8000 -t public
       <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan/{nim}?api_token={api_token}
   </li>
   <li>
-      Get Semua Mahasiswa Pekerjaan
+     Get Semua Mahasiswa Pekerjaan
       <br>Method : Get
       <br>Parameter : 
       <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan?api_token={api_token}
   </li>
   <li>
-      Get Mahasiswa Semua Detail berdasarkan NIM
+     Get Mahasiswa Semua Detail berdasarkan NIM
       <br>Method : Get
       <br>Parameter : 
       <br>Address : http://localhost:8000/api/v1/mahasiswa/detail/{nim}
