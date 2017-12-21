@@ -408,4 +408,12 @@ class MahasiswaController extends Controller {
         }
     }
 
+    public function import_excel(Request $request)
+    {
+        $rows = \Excel::load($request->file('mahasiswa'), function ($reader) {
+        })->get();
+
+        return response()->json(compact('rows'));
+    }
+
 }

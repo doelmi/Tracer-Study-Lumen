@@ -23,7 +23,9 @@ $app = new Laravel\Lumen\Application(
         realpath(__DIR__ . '/../')
 );
 
-$app->withFacades();
+$app->withFacades(true, [
+  Maatwebsite\Excel\Facades\Excel::class => 'Excel',
+]);
 
 $app->withEloquent();
 
@@ -86,6 +88,7 @@ $app->routeMiddleware([
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
+$app->register(Maatwebsite\Excel\ExcelServiceProvider::class);
 
 /*
   |--------------------------------------------------------------------------

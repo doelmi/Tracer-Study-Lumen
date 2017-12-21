@@ -69,5 +69,8 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->delete('/foto/{nim}', ['uses' => 'MahasiswaController@del_foto']);
         $router->get('/foto/{nim}', ['uses' => 'MahasiswaController@get_foto']);
         $router->get('/foto', ['uses' => 'MahasiswaController@get_all_foto']);
+
+        # import excel
+        $router->post('import-excel', 'MahasiswaController@import_excel');
     });
 });
