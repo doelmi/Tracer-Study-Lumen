@@ -307,7 +307,7 @@ class MahasiswaController extends Controller {
         $set = Pekerjaan::create([
                     'nim' => $nim,
                     'status_pekerjaan' => $status_pekerjaan,
-                    'keterangan' => $keterangan
+                    'keterangan' => json_encode($keterangan)
         ]);
         if ($set) {
             $res['success'] = true;
