@@ -32,6 +32,10 @@ class Akademik extends Model implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $hidden = [
-        
     ];
+
+    public function getProdiAttribute($value)
+    {
+        return implode(" ", explode("-", $value));
+    }
 }

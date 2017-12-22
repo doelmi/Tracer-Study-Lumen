@@ -42,6 +42,8 @@ $router->group(['prefix' => 'api/v1'], function($router) {
 
     $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth'], function($router) {
 
+        # get semua data
+        $router->get('/semua', 'MahasiswaController@semua');
         //Pribadi
         $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']); //belum fix upload file
         $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']); //belum fix upload file

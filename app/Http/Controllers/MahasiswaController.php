@@ -416,4 +416,20 @@ class MahasiswaController extends Controller {
         return response()->json(compact('rows'));
     }
 
+    public function semua(Request $request)
+    {
+        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto')->orderBy('nim')->paginate(10)->appends($request->all());
+        if ($mhs) {
+            $res['success'] = true;
+            $res['message'] = $mhs;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Mahasiswa!';
+
+            return response($res, 400);
+        }
+    }
+
 }
