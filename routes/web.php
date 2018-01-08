@@ -39,14 +39,22 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         # get detail mahasiswa, sak fotonya, sak data-data lainnya
         $router->get('/detail/{nim}', 'MahasiswaController@get_detail');
     });
-
+    
+    $router->group(['prefix' => 'prodi', 'middleware' => 'auth'], function($router) {
+        $router->post('/', ['uses' => 'ProdiController@set_prodi']); 
+        $router->put('/{id}', ['uses' => 'ProdiController@put_prodi']); 
+        $router->delete('/{id}', ['uses' => 'ProdiController@del_prodi']);
+        $router->get('/{id}', ['uses' => 'ProdiController@get_prodi']);
+        $router->get('/', ['uses' => 'ProdiController@get_all_prodi']);
+    });
+    
     $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth'], function($router) {
 
         # get semua data
         $router->get('/semua', 'MahasiswaController@semua');
         //Pribadi
-        $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']); //belum fix upload file
-        $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']); //belum fix upload file
+        $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']); 
+        $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']); 
         $router->delete('/pribadi/{nim}', ['uses' => 'MahasiswaController@del_mhs']);
         $router->get('/pribadi/{nim}', ['uses' => 'MahasiswaController@get_mhs']);
         $router->get('/pribadi', ['uses' => 'MahasiswaController@get_all_mhs']);
@@ -74,5 +82,26 @@ $router->group(['prefix' => 'api/v1'], function($router) {
 
         # import excel
         $router->post('import-excel', 'MahasiswaController@import_excel');
+        
+        //Krisar
+        $router->post('/krisar', ['uses' => 'MahasiswaController@set_krisar']);
+        $router->put('/krisar/{nim}', ['uses' => 'MahasiswaController@put_krisar']);
+        $router->delete('/krisar/{nim}', ['uses' => 'MahasiswaController@del_krisar']);
+        $router->get('/krisar/{nim}', ['uses' => 'MahasiswaController@get_krisar']);
+        $router->get('/krisar', ['uses' => 'MahasiswaController@get_all_krisar']);
+    });
+
+    $router->group(['prefix' => 'mahasiswa/akun'], function($router) {
+        $router->post('/login', 'MahasiswaAkunController@login');
+        $router->get('/cek_token', 'MahasiswaAkunController@cek_token_mhs');
+        $router->group(['middleware' => 'auth_mhs'], function($router) {
+            $router->get('/detail', ['uses' => 'MahasiswaAkunController@get_mhs_akun']);
+            $router->put('/password', ['uses' => 'MahasiswaAkunController@put_mhs_akun']);
+            $router->put('/pribadi', ['uses' => 'MahasiswaAkunController@put_mhs']);
+            $router->put('/akademik', ['uses' => 'MahasiswaAkunController@put_akademik']);
+            $router->put('/foto', ['uses' => 'MahasiswaAkunController@put_foto']);
+            $router->put('/krisar', ['uses' => 'MahasiswaAkunController@put_krisar']);
+            $router->put('/pekerjaan', ['uses' => 'MahasiswaAkunController@put_pekerjaan']);
+        });
     });
 });
