@@ -103,7 +103,6 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->group(['middleware' => 'auth_mhs'], function($router) {
             $router->get('/detail', ['uses' => 'MahasiswaAkunController@get_mhs_akun']);
             $router->put('/password', ['uses' => 'MahasiswaAkunController@put_mhs_akun']);
-            $router->put('/email', ['uses' => 'MahasiswaAkunController@put_mhs_akun_email']);
             $router->put('/pribadi', ['uses' => 'MahasiswaAkunController@put_mhs']);
             $router->put('/akademik', ['uses' => 'MahasiswaAkunController@put_akademik']);
             $router->put('/foto', ['uses' => 'MahasiswaAkunController@put_foto']);
