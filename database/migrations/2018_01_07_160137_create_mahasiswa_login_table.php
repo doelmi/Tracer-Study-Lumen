@@ -16,7 +16,7 @@ class CreateMahasiswaLoginTable extends Migration {
             $table->increments('id');
             $table->string('nim')->unique();
             $table->string('password')->nullable();
-            $table->string('api_token_mhs');
+            $table->string('api_token_mhs')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

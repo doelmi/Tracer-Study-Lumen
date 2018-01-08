@@ -35,23 +35,41 @@ class MahasiswaAkunController extends Controller {
             return response($res, 401);
         } else {
             if ($hasher->check($password, $login->password)) {
-                $api_token = sha1($nim . time() . $password);
-                $create_token = Mahasiswa_Login::where('id', $login->id)->update(['api_token_mhs' => $api_token]);
-                if ($create_token) {
+                if ($login->api_token_mhs == NULL) {
+                    $api_token = sha1($nim . time() . $password);
+                    $create_token = Mahasiswa_Login::where('id', $login->id)->update(['api_token_mhs' => $api_token]);
+                    if ($create_token) {
+                        $res['success'] = true;
+                        $res['api_token_mhs'] = $api_token;
+                        $res['message'] = $login;
+                        $res['first_login'] = 0;
+                        return response($res);
+                    }
+                } else {
                     $res['success'] = true;
-                    $res['api_token_mhs'] = $api_token;
+                    $res['api_token_mhs'] = $login->api_token_mhs;
                     $res['message'] = $login;
                     $res['first_login'] = 0;
                     return response($res);
                 }
             } else if ($login->password == NULL && $password == $login->nim) {
-                $api_token = sha1($nim . time());
-                $create_token = Mahasiswa_Login::where('id', $login->id)->update(['api_token_mhs' => $api_token]);
-                if ($create_token) {
+                if ($login->api_token_mhs == NULL) {
+                    $api_token = sha1($nim . time());
+                    $create_token = Mahasiswa_Login::where('id', $login->id)->update(['api_token_mhs' => $api_token]);
+                    if ($create_token) {
+                        $res['success'] = true;
+                        $res['api_token_mhs'] = $api_token;
+                        $res['message'] = $login;
+                        $res['first_login'] = 1;
+                        $res['pesan'] = "Silakan Ganti Password!";
+                        return response($res);
+                    }
+                } else {
                     $res['success'] = true;
-                    $res['api_token_mhs'] = $api_token;
+                    $res['api_token_mhs'] = $login->api_token_mhs;
                     $res['message'] = $login;
                     $res['first_login'] = 1;
+                    $res['pesan'] = "Silakan Ganti Password!";
                     return response($res);
                 }
             } else {

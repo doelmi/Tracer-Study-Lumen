@@ -23,11 +23,18 @@ class LoginController extends Controller {
             return response($res, 401);
         } else {
             if ($hasher->check($password, $login->password)) {
-                $api_token = sha1($email.time().$password);
-                $create_token = User::where('id', $login->id)->update(['api_token' => $api_token]);
-                if ($create_token) {
+                if ($login->api_token == NULL) {
+                    $api_token = sha1($email . time() . $password);
+                    $create_token = User::where('id', $login->id)->update(['api_token' => $api_token]);
+                    if ($create_token) {
+                        $res['success'] = true;
+                        $res['api_token'] = $api_token;
+                        $res['message'] = $login;
+                        return response($res);
+                    }
+                } else {
                     $res['success'] = true;
-                    $res['api_token'] = $api_token;
+                    $res['api_token'] = $login->api_token;
                     $res['message'] = $login;
                     return response($res);
                 }
