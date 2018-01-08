@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
 use Illuminate\Http\Request;
 use App\Mahasiswa;
@@ -9,7 +9,7 @@ use App\Foto;
 use App\Pekerjaan;
 use App\Mahasiswa_Login;
 
-class MahasiswaAkunController extends Controller {
+class MahasiswaAkunController extends \App\Http\Controllers\Controller {
 
     public function base64ToImage($imageData, $nim) {
         list($type, $imageData) = explode(';', $imageData);

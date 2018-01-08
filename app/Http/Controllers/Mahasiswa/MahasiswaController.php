@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
 use Illuminate\Http\Request;
 use App\Mahasiswa;
@@ -10,7 +10,7 @@ use App\Pekerjaan;
 use App\Mahasiswa_Login;
 use App\Krisar;
 
-class MahasiswaController extends Controller {
+class MahasiswaController extends \App\Http\Controllers\Controller {
 
     public function base64ToImage($imageData, $nim) {
         list($type, $imageData) = explode(';', $imageData);
@@ -576,6 +576,7 @@ class MahasiswaController extends Controller {
                 Mahasiswa::create([
                     'nim' => $row->nim,
                     'nama' => $row->nama,
+                    'email' => $row->email,
                     'alamat' => $row->alamat,
                     'no_telepon' => $row->no_telp,
                     'email' => $row->email,
@@ -614,7 +615,7 @@ class MahasiswaController extends Controller {
                         $excel->sheet('sheet 1', function ($sheet) {
                             $mahasiswa = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'krisar')->get();
                             $sheet->appendRow([
-                                'Nim', 'Nama', 'Alamat', 'No Telp', 'Email', 'Tempat Lahir', 'Tanggal Lahir',
+                                'Nim', 'Nama', 'Email', 'Alamat', 'No Telp', 'Email', 'Tempat Lahir', 'Tanggal Lahir',
                                 'Prodi', 'Angkatan Wisuda', 'Tanggal Lulus', 'Nilai IPK',
                                 'Status Pekerjaan', 'Keterangan', 'Kritik dan Saran'
                             ]);
@@ -623,6 +624,7 @@ class MahasiswaController extends Controller {
                                 $sheet->appendRow([
                                     $row->nim,
                                     $row->nama,
+                                    $row->email,
                                     $row->alamat,
                                     $row->no_telepon,
                                     $row->email,

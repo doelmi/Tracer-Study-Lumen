@@ -14,7 +14,7 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
         Authorizable;
 
     public $primaryKey = 'nim';
-    public $table = 'mahasiswas';
+    public $table = 'mahasiswa';
     public $incrementing = false;
 
     /**
@@ -23,7 +23,7 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
      * @var array
      */
     protected $fillable = [
-        'nim', 'nama', 'alamat', 'no_telepon', 'tempat_lahir', 'tanggal_lahir'
+        'nim', 'nama', 'email', 'alamat', 'no_telepon', 'tempat_lahir', 'tanggal_lahir'
     ];
 
     /**

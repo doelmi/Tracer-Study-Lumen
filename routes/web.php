@@ -35,7 +35,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
     $router->get('/user', ['middleware' => 'auth', 'uses' => 'UserController@get_all_user']);
 
     # yang fitur cari mahasiswa ini nggak perlu login
-    $router->group(['prefix' => 'mahasiswa'], function($router) {
+    $router->group(['prefix' => 'mahasiswa', 'namespace' => 'Mahasiswa'], function($router) {
         # get detail mahasiswa, sak fotonya, sak data-data lainnya
         $router->get('/detail/{nim}', 'MahasiswaController@get_detail');
     });
@@ -48,7 +48,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('/', ['uses' => 'ProdiController@get_all_prodi']);
     });
     
-    $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth'], function($router) {
+    $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth', 'namespace' => 'Mahasiswa'], function($router) {
 
         # get semua data
         $router->get('/semua', 'MahasiswaController@semua');
@@ -97,7 +97,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('/auth', ['uses' => 'MahasiswaController@get_all_akun']);
     });
 
-    $router->group(['prefix' => 'mahasiswa/akun'], function($router) {
+    $router->group(['prefix' => 'mahasiswa/akun', 'namespace' => 'Mahasiswa'], function($router) {
         $router->post('/login', 'MahasiswaAkunController@login');
         $router->get('/cek_token', 'MahasiswaAkunController@cek_token_mhs');
         $router->group(['middleware' => 'auth_mhs'], function($router) {
