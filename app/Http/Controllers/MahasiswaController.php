@@ -419,6 +419,39 @@ class MahasiswaController extends Controller {
     public function semua(Request $request)
     {
         $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto')->orderBy('nim')->paginate(10)->appends($request->all());
+
+        if ($request->has('export') && $request->export === 'excel') {
+            return \Excel::create('mahasiswa', function ($excel) {
+                $excel->setTitle('Data Alumni Fakultas Teknik');
+                $excel->setCreator('Fakultas Teknik');
+
+                $excel->sheet('sheet 1', function ($sheet) {
+                    $mahasiswa = Mahasiswa::with('akademik', 'pekerjaan')->get();
+                    $sheet->appendRow([
+                        'Nim', 'Nama', 'Alamat', 'No Telp', 'Tempat Lahir', 'Tanggal Lahir',
+                        'Prodi', 'Angkatan Wisuda', 'Tanggal Lulus', 'Nilai IPK',
+                        'Status Pekerjaan', 'Keterangan'
+                    ]);
+                    
+                    foreach ($mahasiswa as $key => $row) {
+                        $sheet->appendRow([
+                            $row->nim,
+                            $row->nama,
+                            $row->alamat,
+                            $row->no_telepon,
+                            $row->tempat_lahir,
+                            $row->tanggal_lahir,
+                            strtoupper($row->akademik->prodi),
+                            $row->akademik->angkatan_wisuda,
+                            $row->akademik->tanggal_lulus,
+                            $row->akademik->nilai_ipk,
+                            strtoupper($row->pekerjaan->status_pekerjaan),
+                            json_encode($row->pekerjaan->keterangan),
+                        ]);
+                    }
+                });
+            })->export('xlsx');
+        }
         if ($mhs) {
             $res['success'] = true;
             $res['message'] = $mhs;
