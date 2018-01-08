@@ -18,6 +18,7 @@ class CreateMahasiswasTable extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->string('no_telepon');
+            $table->string('email')->unique();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->timestamps();

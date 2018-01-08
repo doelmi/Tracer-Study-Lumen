@@ -15,7 +15,6 @@ class CreateMahasiswaLoginTable extends Migration {
         Schema::create('mahasiswa_login', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nim')->unique();
-            $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('api_token_mhs');
             $table->rememberToken();

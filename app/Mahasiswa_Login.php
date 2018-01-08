@@ -23,7 +23,7 @@ class Mahasiswa_Login extends Model implements AuthenticatableContract, Authoriz
      * @var array
      */
     protected $fillable = [
-        'nim', 'email', 'password', 'api_token_mhs'
+        'nim', 'password', 'api_token_mhs'
     ];
 
     /**

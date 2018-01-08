@@ -138,32 +138,6 @@ class MahasiswaAkunController extends Controller {
         }
     }
 
-    public function put_mhs_akun_email(Request $request) {
-        $token = $request->input('api_token_mhs');
-        $check_token = Mahasiswa_Login::where('api_token_mhs', $token)->first();
-        if ($check_token) {
-            $nim = $check_token->nim;
-            $email = $request->input('email');
-            $mhs = Mahasiswa_Login::find($nim);
-
-            $mhs->email = $email;
-
-            if ($mhs->save()) {
-                $res['success'] = true;
-                $res['message'] = 'Sukses Memperbarui!';
-                return response($res);
-            } else {
-                $res['success'] = false;
-                $res['message'] = 'Gagal Memperbarui!';
-                return response($res, 400);
-            }
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Permission not allowed!';
-            return response($res, 401);
-        }
-    }
-
     public function put_mhs(Request $request) {
         $token = $request->input('api_token_mhs');
         $check_token = Mahasiswa_Login::where('api_token_mhs', $token)->first();
@@ -174,12 +148,14 @@ class MahasiswaAkunController extends Controller {
             $no_telepon = $request->input('no_telepon');
             $tempat_lahir = $request->input('tempat_lahir');
             $tanggal_lahir = $request->input('tanggal_lahir');
+            $email = $request->input('email');
 
             $mhs = Mahasiswa::find($nim);
 
             $mhs->nama = $nama;
             $mhs->alamat = $alamat;
             $mhs->no_telepon = $no_telepon;
+            $mhs->email = $email;
             $mhs->tempat_lahir = $tempat_lahir;
             $mhs->tanggal_lahir = $tanggal_lahir;
 

@@ -26,12 +26,10 @@ class MahasiswaController extends Controller {
     }
 
     public function put_akun(Request $request, $nim) {
-        $email = $request->input('email');
         $password = $request->input('password');
 
         $mhs = Mahasiswa_Login::find($nim);
 
-        $mhs->nim = $email;
         $mhs->nama = $password;
 
         if ($mhs->save()) {
@@ -96,12 +94,14 @@ class MahasiswaController extends Controller {
         $no_telepon = $request->input('no_telepon');
         $tempat_lahir = $request->input('tempat_lahir');
         $tanggal_lahir = $request->input('tanggal_lahir');
+        $email = $request->input('email');
 
         $set = Mahasiswa::create([
                     'nim' => $nim,
                     'nama' => $nama,
                     'alamat' => $alamat,
                     'no_telepon' => $no_telepon,
+                    'email' => $email,
                     'tempat_lahir' => $tempat_lahir,
                     'tanggal_lahir' => $tanggal_lahir
         ]);
@@ -112,7 +112,7 @@ class MahasiswaController extends Controller {
                     'password' => NULL
         ]);
 
-        if ($set) {
+        if ($set && $set_akun) {
             $res['success'] = true;
             $res['message'] = 'Sukses Menyimpan!';
             return response($res);
@@ -130,6 +130,7 @@ class MahasiswaController extends Controller {
         $no_telepon = $request->input('no_telepon');
         $tempat_lahir = $request->input('tempat_lahir');
         $tanggal_lahir = $request->input('tanggal_lahir');
+        $email = $request->input('email');
 
         $mhs = Mahasiswa::find($nim);
 
@@ -137,6 +138,7 @@ class MahasiswaController extends Controller {
         $mhs->nama = $nama;
         $mhs->alamat = $alamat;
         $mhs->no_telepon = $no_telepon;
+        $mhs->email = $email;
         $mhs->tempat_lahir = $tempat_lahir;
         $mhs->tanggal_lahir = $tanggal_lahir;
 
@@ -576,6 +578,7 @@ class MahasiswaController extends Controller {
                     'nama' => $row->nama,
                     'alamat' => $row->alamat,
                     'no_telepon' => $row->no_telp,
+                    'email' => $row->email,
                     'tempat_lahir' => $row->tempat_lahir,
                     'tanggal_lahir' => $row->tanggal_lahir
                 ]);
@@ -622,7 +625,7 @@ class MahasiswaController extends Controller {
                                     $row->nama,
                                     $row->alamat,
                                     $row->no_telepon,
-                                    $row->mahasiswa_login->email,
+                                    $row->email,
                                     $row->tempat_lahir,
                                     $row->tanggal_lahir,
                                     strtoupper($row->akademik->prodi),
