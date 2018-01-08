@@ -25,6 +25,70 @@ class MahasiswaController extends Controller {
         return $link_path;
     }
 
+    public function put_akun(Request $request, $nim) {
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $mhs = Mahasiswa_Login::find($nim);
+
+        $mhs->nim = $email;
+        $mhs->nama = $password;
+
+        if ($mhs->save()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Memperbarui!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Memperbarui!';
+            return response($res, 400);
+        }
+    }
+
+    public function del_akun(Request $request, $nim) {
+        $mhs = Mahasiswa_Login::find($nim);
+
+        if ($mhs->delete()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Menghapus!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Menghapus!';
+            return response($res, 400);
+        }
+    }
+
+    public function get_akun(Request $request, $nim) {
+        $mhs = Mahasiswa_Login::where('nim', $nim)->get();
+        if ($mhs) {
+            $res['success'] = true;
+            $res['message'] = $mhs;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Mahasiswa!';
+
+            return response($res, 400);
+        }
+    }
+
+    public function get_all_akun(Request $request) {
+        $mhs = Mahasiswa_Login::all();
+        if ($mhs) {
+            $res['success'] = true;
+            $res['message'] = $mhs;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Mahasiswa!';
+
+            return response($res, 400);
+        }
+    }
+
     public function set_mhs(Request $request) {
         $nim = $request->input('nim');
         $nama = $request->input('nama');
@@ -483,7 +547,7 @@ class MahasiswaController extends Controller {
     }
 
     public function get_detail(Request $request, $nim) {
-        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto', 'krisar')->where('nim', $nim)->firstOrFail();
+        $mhs = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'foto', 'krisar')->where('nim', $nim)->firstOrFail();
         if ($mhs) {
             $res['success'] = true;
             $res['message'] = $mhs;
@@ -497,49 +561,51 @@ class MahasiswaController extends Controller {
         }
     }
 
-    public function import_excel(Request $request)
-    {
+    public function import_excel(Request $request) {
         $rows = \Excel::load($request->file('mahasiswa'), function ($reader) {
-        })->get();
+                    
+                })->get();
 
         return response()->json(compact('rows'));
     }
 
-    public function semua(Request $request)
-    {
-        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto')->orderBy('nim')->paginate(10)->appends($request->all());
+    public function semua(Request $request) {
+
+        $mhs = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'foto', 'krisar')->orderBy('nim')->paginate(10)->appends($request->all());
 
         if ($request->has('export') && $request->export === 'excel') {
             return \Excel::create('mahasiswa', function ($excel) {
-                $excel->setTitle('Data Alumni Fakultas Teknik');
-                $excel->setCreator('Fakultas Teknik');
+                        $excel->setTitle('Data Alumni Fakultas Teknik');
+                        $excel->setCreator('Fakultas Teknik');
 
-                $excel->sheet('sheet 1', function ($sheet) {
-                    $mahasiswa = Mahasiswa::with('akademik', 'pekerjaan')->get();
-                    $sheet->appendRow([
-                        'Nim', 'Nama', 'Alamat', 'No Telp', 'Tempat Lahir', 'Tanggal Lahir',
-                        'Prodi', 'Angkatan Wisuda', 'Tanggal Lulus', 'Nilai IPK',
-                        'Status Pekerjaan', 'Keterangan'
-                    ]);
-                    
-                    foreach ($mahasiswa as $key => $row) {
-                        $sheet->appendRow([
-                            $row->nim,
-                            $row->nama,
-                            $row->alamat,
-                            $row->no_telepon,
-                            $row->tempat_lahir,
-                            $row->tanggal_lahir,
-                            strtoupper($row->akademik->prodi),
-                            $row->akademik->angkatan_wisuda,
-                            $row->akademik->tanggal_lulus,
-                            $row->akademik->nilai_ipk,
-                            strtoupper($row->pekerjaan->status_pekerjaan),
-                            json_encode($row->pekerjaan->keterangan),
-                        ]);
-                    }
-                });
-            })->export('xlsx');
+                        $excel->sheet('sheet 1', function ($sheet) {
+                            $mahasiswa = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'krisar')->get();
+                            $sheet->appendRow([
+                                'Nim', 'Nama', 'Alamat', 'No Telp', 'Email', 'Tempat Lahir', 'Tanggal Lahir',
+                                'Prodi', 'Angkatan Wisuda', 'Tanggal Lulus', 'Nilai IPK',
+                                'Status Pekerjaan', 'Keterangan', 'Kritik dan Saran'
+                            ]);
+
+                            foreach ($mahasiswa as $key => $row) {
+                                $sheet->appendRow([
+                                    $row->nim,
+                                    $row->nama,
+                                    $row->alamat,
+                                    $row->no_telepon,
+                                    $row->mahasiswa_login->email,
+                                    $row->tempat_lahir,
+                                    $row->tanggal_lahir,
+                                    strtoupper($row->akademik->prodi),
+                                    $row->akademik->angkatan_wisuda,
+                                    $row->akademik->tanggal_lulus,
+                                    $row->akademik->nilai_ipk,
+                                    strtoupper($row->pekerjaan->status_pekerjaan),
+                                    json_encode($row->pekerjaan->keterangan),
+                                    $row->krisar->isi_krisar,
+                                ]);
+                            }
+                        });
+                    })->export('xlsx');
         }
 
         if ($mhs) {
