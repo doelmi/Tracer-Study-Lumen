@@ -96,21 +96,30 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         $tanggal_lahir = $request->input('tanggal_lahir');
         $email = $request->input('email');
 
-        $set = Mahasiswa::create([
-                    'nim' => $nim,
-                    'nama' => $nama,
-                    'alamat' => $alamat,
-                    'no_telepon' => $no_telepon,
-                    'email' => $email,
-                    'tempat_lahir' => $tempat_lahir,
-                    'tanggal_lahir' => $tanggal_lahir
-        ]);
+        if (Mahasiswa::find($nim)) {
+            $set = Mahasiswa::find($nim);
+        } else {
+            $set = new Mahasiswa;
+        }
+
+        $set->nim = $nim;
+        $set->nama = $nama;
+        $set->email = $email;
+        $set->alamat = $alamat;
+        $set->no_telepon = $no_telepon;
+        $set->tempat_lahir = $tempat_lahir;
+        $set->tanggal_lahir = $tanggal_lahir;
+        $set->save();
 
         //buat akun mahasiswa
-        $set_akun = Mahasiswa_Login::create([
-                    'nim' => $nim,
-                    'password' => NULL
-        ]);
+        if (Mahasiswa_Login::find($nim)) {
+            $set_akun = Mahasiswa_Login::find($nim);
+        } else {
+            $set_akun = new Mahasiswa_Login;
+        }
+        $set_akun->nim = $nim;
+        $set_akun->password = null;
+        $set_akun->save();
 
         if ($set && $set_akun) {
             $res['success'] = true;
@@ -192,102 +201,6 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         } else {
             $res['success'] = false;
             $res['message'] = 'Cannot find Mahasiswa!';
-
-            return response($res, 400);
-        }
-    }
-
-    public function set_akademik(Request $request) {
-//        'id', 'nim', 'prodi', 'angkatan_wisuda', 'tanggal_lulus', 'nilai_ipk'
-        $nim = $request->input('nim');
-        $prodi = $request->input('prodi');
-        $angkatan_wisuda = $request->input('angkatan_wisuda');
-        $tanggal_lulus = $request->input('tanggal_lulus');
-        $nilai_ipk = $request->input('nilai_ipk');
-
-        $set = Akademik::create([
-                    'nim' => $nim,
-                    'prodi' => $prodi,
-                    'angkatan_wisuda' => $angkatan_wisuda,
-                    'tanggal_lulus' => $tanggal_lulus,
-                    'nilai_ipk' => $nilai_ipk
-        ]);
-        if ($set) {
-            $res['success'] = true;
-            $res['message'] = 'Sukses Menyimpan!';
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Gagal Menyimpan!';
-            return response($res, 400);
-        }
-    }
-
-    public function put_akademik(Request $request, $nim) {
-//        'id', 'nim', 'prodi', 'angkatan_wisuda', 'tanggal_lulus', 'nilai_ipk'
-        $nim = $request->input('nim');
-        $prodi = $request->input('prodi');
-        $angkatan_wisuda = $request->input('angkatan_wisuda');
-        $tanggal_lulus = $request->input('tanggal_lulus');
-        $nilai_ipk = $request->input('nilai_ipk');
-
-        $set = Akademik::find($nim);
-        $set->nim = $nim;
-        $set->prodi = $prodi;
-        $set->angkatan_wisuda = $angkatan_wisuda;
-        $set->tanggal_lulus = $tanggal_lulus;
-        $set->nilai_ipk = $nilai_ipk;
-
-        if ($set->save()) {
-            $res['success'] = true;
-            $res['message'] = 'Sukses Memperbarui!';
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Gagal Memperbarui!';
-            return response($res, 400);
-        }
-    }
-
-    public function del_akademik(Request $request, $nim) {
-        $mhs = Akademik::find($nim);
-
-        if ($mhs->delete()) {
-            $res['success'] = true;
-            $res['message'] = 'Sukses Menghapus!';
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Gagal Menghapus!';
-            return response($res, 400);
-        }
-    }
-
-    public function get_akademik(Request $request, $nim) {
-        $akademik = Akademik::where('nim', $nim)->get();
-        if ($akademik) {
-            $res['success'] = true;
-            $res['message'] = $akademik;
-
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Cannot find Akademik!';
-
-            return response($res, 400);
-        }
-    }
-
-    public function get_all_akademik(Request $request) {
-        $akademik = Akademik::all();
-        if ($akademik) {
-            $res['success'] = true;
-            $res['message'] = $akademik;
-
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Cannot find Akademik!';
 
             return response($res, 400);
         }

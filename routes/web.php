@@ -36,8 +36,10 @@ $router->group(['prefix' => 'api/v1'], function($router) {
 
     # yang fitur cari mahasiswa ini nggak perlu login
     $router->group(['prefix' => 'mahasiswa', 'namespace' => 'Mahasiswa'], function($router) {
-        # get detail mahasiswa, sak fotonya, sak data-data lainnya
+        # get semua data
         $router->get('/detail/{nim}', 'MahasiswaController@get_detail');
+        # get detail mahasiswa, sak fotonya, sak data-data lainnya
+        $router->get('/', 'MahasiswaController@index');
     });
     
     $router->group(['prefix' => 'prodi', 'middleware' => 'auth'], function($router) {
@@ -49,9 +51,6 @@ $router->group(['prefix' => 'api/v1'], function($router) {
     });
     
     $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth', 'namespace' => 'Mahasiswa'], function($router) {
-
-        # get semua data
-        $router->get('/', 'MahasiswaController@index');
         //Pribadi
         $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']); 
         $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']); 
@@ -60,11 +59,11 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('/pribadi', ['uses' => 'MahasiswaController@get_all_mhs']);
 
         //Akademik
-        $router->post('/akademik', ['uses' => 'MahasiswaController@set_akademik']);
-        $router->put('/akademik/{nim}', ['uses' => 'MahasiswaController@put_akademik']);
-        $router->delete('/akademik/{nim}', ['uses' => 'MahasiswaController@del_akademik']);
-        $router->get('/akademik/{nim}', ['uses' => 'MahasiswaController@get_akademik']);
-        $router->get('/akademik', ['uses' => 'MahasiswaController@get_all_akademik']);
+        $router->get('/akademik', ['uses' => 'MahasiswaAkademikController@index']);
+        $router->post('/akademik', ['uses' => 'MahasiswaAkademikController@store']);
+        $router->get('/akademik/{nim}', ['uses' => 'MahasiswaAkademikController@show']);
+        $router->put('/akademik/{nim}', ['uses' => 'MahasiswaAkademikController@update']);
+        $router->delete('/akademik/{nim}', ['uses' => 'MahasiswaAkademikController@destroy']);
 
         //Pekerjaan
         $router->post('/pekerjaan', ['uses' => 'MahasiswaController@set_pekerjaan']);
