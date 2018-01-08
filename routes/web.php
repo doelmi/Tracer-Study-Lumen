@@ -89,6 +89,12 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->delete('/krisar/{nim}', ['uses' => 'MahasiswaController@del_krisar']);
         $router->get('/krisar/{nim}', ['uses' => 'MahasiswaController@get_krisar']);
         $router->get('/krisar', ['uses' => 'MahasiswaController@get_all_krisar']);
+
+        //Akun
+        $router->put('/auth/{nim}', ['uses' => 'MahasiswaController@put_akun']);
+        $router->delete('/auth/{nim}', ['uses' => 'MahasiswaController@del_akun']);
+        $router->get('/auth/{nim}', ['uses' => 'MahasiswaController@get_akun']);
+        $router->get('/auth', ['uses' => 'MahasiswaController@get_all_akun']);
     });
 
     $router->group(['prefix' => 'mahasiswa/akun'], function($router) {
@@ -97,6 +103,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->group(['middleware' => 'auth_mhs'], function($router) {
             $router->get('/detail', ['uses' => 'MahasiswaAkunController@get_mhs_akun']);
             $router->put('/password', ['uses' => 'MahasiswaAkunController@put_mhs_akun']);
+            $router->put('/email', ['uses' => 'MahasiswaAkunController@put_mhs_akun_email']);
             $router->put('/pribadi', ['uses' => 'MahasiswaAkunController@put_mhs']);
             $router->put('/akademik', ['uses' => 'MahasiswaAkunController@put_akademik']);
             $router->put('/foto', ['uses' => 'MahasiswaAkunController@put_foto']);

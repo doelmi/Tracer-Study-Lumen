@@ -84,7 +84,7 @@ class MahasiswaAkunController extends Controller {
         $token = $request->input('api_token_mhs');
         $check_token = Mahasiswa_Login::where('api_token_mhs', $token)->first();
         if ($check_token) {
-            $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto', 'krisar')->where('nim', $check_token->nim)->firstOrFail();
+            $mhs = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'foto', 'krisar')->where('nim', $check_token->nim)->firstOrFail();
             if ($mhs) {
                 $res['success'] = true;
                 $res['message'] = $mhs;
@@ -129,6 +129,32 @@ class MahasiswaAkunController extends Controller {
             } else {
                 $res['success'] = false;
                 $res['message'] = 'Password lama tidak sesuai!';
+                return response($res, 400);
+            }
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Permission not allowed!';
+            return response($res, 401);
+        }
+    }
+
+    public function put_mhs_akun_email(Request $request) {
+        $token = $request->input('api_token_mhs');
+        $check_token = Mahasiswa_Login::where('api_token_mhs', $token)->first();
+        if ($check_token) {
+            $nim = $check_token->nim;
+            $email = $request->input('email');
+            $mhs = Mahasiswa_Login::find($nim);
+
+            $mhs->email = $email;
+
+            if ($mhs->save()) {
+                $res['success'] = true;
+                $res['message'] = 'Sukses Memperbarui!';
+                return response($res);
+            } else {
+                $res['success'] = false;
+                $res['message'] = 'Gagal Memperbarui!';
                 return response($res, 400);
             }
         } else {

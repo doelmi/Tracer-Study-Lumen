@@ -181,6 +181,30 @@ php -S 0.0.0.0:8000 -t public
       <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan?api_token={api_token}
   </li>
   <li>
+     Update Mahasiswa Auth
+    <br>Method : Put
+    <br>Parameter : email, password
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/auth/{nim}?api_token={api_token}
+  </li>
+  <li>
+     Delete Mahasiswa Auth
+    <br>Method : Delete
+    <br>Parameter : 
+    <br>Address : http://localhost:8000/api/v1/mahasiswa/auth/{nim}?api_token={api_token}
+  </li>
+  <li>
+      Get Mahasiswa Auth berdasarkan NIM
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/auth/{nim}?api_token={api_token}
+  </li>
+  <li>
+     Get Semua Mahasiswa Auth
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/auth?api_token={api_token}
+  </li>
+  <li>
      Get Mahasiswa Semua Detail berdasarkan NIM
       <br>Method : Get
       <br>Parameter : 
@@ -271,6 +295,12 @@ php -S 0.0.0.0:8000 -t public
       <br>Method : Put
       <br>Parameter : status_pekerjaan, keterangan
       <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/pekerjaan?api_token_mhs={api_token_mhs}
+  </li>
+  <li>
+      Update Email Mahasiswa yang Login
+      <br>Method : Put
+      <br>Parameter : email
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/email?api_token_mhs={api_token_mhs}
   </li>
 </ol>
 

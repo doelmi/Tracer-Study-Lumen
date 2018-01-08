@@ -49,5 +49,9 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
     public function krisar() {
         return $this->hasOne('App\Krisar', 'nim');
     }
+    
+    public function mahasiswa_login() {
+        return $this->hasOne('App\Mahasiswa_Login', 'nim');
+    }
 
 }
