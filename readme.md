@@ -63,13 +63,13 @@ php -S 0.0.0.0:8000 -t public
   <li>
      Insert Mahasiswa Pribadi
     <br>Method : Post
-    <br>Parameter : nim, nama, alamat, no_telepon
+    <br>Parameter : nim, nama, alamat, no_telepon, tempat_lahir, tanggal_lahir
     <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi?api_token={api_token}
   </li>
   <li>
      Update Mahasiswa Pribadi
     <br>Method : Put
-    <br>Parameter : nim, nama, alamat, no_telepon
+    <br>Parameter : nim, nama, alamat, no_telepon,tempat_lahir, tanggal_lahir
     <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi/{nim}?api_token={api_token}
   </li>
   <li>
@@ -186,8 +186,95 @@ php -S 0.0.0.0:8000 -t public
       <br>Parameter : 
       <br>Address : http://localhost:8000/api/v1/mahasiswa/detail/{nim}
   </li>
+  </li>
+  <li>
+      Get Semua Mahasiswa Pekerjaan
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan?api_token={api_token}
+  </li>
+  <li>
+      Insert Prodi
+      <br>Method : Post
+      <br>Parameter : nama_prodi
+      <br>Address : http://localhost:8000/api/v1/prodi?api_token={api_token}
+  </li>
+  <li>
+      Update Prodi
+      <br>Method : Put
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/prodi/{id}?api_token={api_token}
+  </li>
+  <li>
+      Delete Prodi
+      <br>Method : Delete
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/prodi/{id}?api_token={api_token}
+  </li>
+  <li>
+      Get Prodi berdasarkan ID
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/prodi/{id}?api_token={api_token}
+  </li>
+  <li>
+      Get Semua Prodi
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/prodi?api_token={api_token}
+  </li>
+  <li>
+      Login Akun Mahasiswa
+      <br>Method : Post
+      <br>Parameter : nim, password
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/login
+  </li>
+  <li>
+      Cek Token Akun Mahasiswa
+      <br>Keterangan : Mengecek apakah token ini masih berfungsi atau tidak.
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/cek_token?api_token_mhs={api_token_mhs}
+  </li>
+  <li>
+      Get Detail Mahasiswa yang Login
+      <br>Method : Get
+      <br>Parameter : 
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/detail?api_token_mhs={api_token_mhs}
+  </li>
+  <li>
+      Ganti Password Mahasiswa yang Login
+      <br>Method : Put
+      <br>Parameter : old_password, new_password
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/password?api_token_mhs={api_token_mhs}
+  </li>
+  <li>
+      Update Pribadi Mahasiswa yang Login
+      <br>Method : Put
+      <br>Parameter : nim, nama, alamat, no_telepon, tempat_lahir, tanggal_lahir
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/pribadi?api_token_mhs={api_token_mhs}
+  </li>
+  <li>
+      Update Akademik Mahasiswa yang Login
+      <br>Method : Put
+      <br>Parameter : nim, prodi, angkatan_wisuda, tanggal_lulus, nilai_ipk
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/akademik?api_token_mhs={api_token_mhs}
+  </li>
+  <li>
+      Update Foto Mahasiswa yang Login
+      <br>Method : Put
+      <br>Parameter : foto
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/foto?api_token_mhs={api_token_mhs}
+  </li>
+  <li>
+      Update Pekerjaan Mahasiswa yang Login
+      <br>Method : Put
+      <br>Parameter : status_pekerjaan, keterangan
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/pekerjaan?api_token_mhs={api_token_mhs}
+  </li>
 </ol>
 
-{api_token} didapatkan dari proses login
+{api_token} didapatkan dari proses "Login"
+{api_token_mhs} didapatkan dari proses "Login Akun Mahasiswa"
 
 

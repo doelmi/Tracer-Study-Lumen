@@ -69,6 +69,7 @@ $app->middleware([
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'auth_mhs' => App\Http\Middleware\AuthenticateMahasiswa::class,
 //    'cors' => \Barryvdh\Cors\HandleCors::class,
 //    'cors2' => App\Http\Middleware\cors::class,
 ]);

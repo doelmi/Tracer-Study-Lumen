@@ -7,6 +7,8 @@ use App\Mahasiswa;
 use App\Akademik;
 use App\Foto;
 use App\Pekerjaan;
+use App\Mahasiswa_Login;
+use App\Krisar;
 
 class MahasiswaController extends Controller {
 
@@ -39,6 +41,13 @@ class MahasiswaController extends Controller {
                     'tempat_lahir' => $tempat_lahir,
                     'tanggal_lahir' => $tanggal_lahir
         ]);
+
+        //buat akun mahasiswa
+        $set_akun = Mahasiswa_Login::create([
+                    'nim' => $nim,
+                    'password' => NULL
+        ]);
+
         if ($set) {
             $res['success'] = true;
             $res['message'] = 'Sukses Menyimpan!';
@@ -57,7 +66,7 @@ class MahasiswaController extends Controller {
         $no_telepon = $request->input('no_telepon');
         $tempat_lahir = $request->input('tempat_lahir');
         $tanggal_lahir = $request->input('tanggal_lahir');
-        
+
         $mhs = Mahasiswa::find($nim);
 
         $mhs->nim = $new_nim;
@@ -392,9 +401,89 @@ class MahasiswaController extends Controller {
         }
     }
 
-    public function get_detail(Request $request, $nim)
-    {
-        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto')->where('nim', $nim)->firstOrFail();
+    public function set_krisar(Request $request) {
+        $nim = $request->input('nim');
+        $isi_krisar = $request->input('isi_krisar');
+
+        $set = Krisar::create([
+                    'nim' => $nim,
+                    'isi_krisar' => $isi_krisar
+        ]);
+        if ($set) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Menyimpan!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Menyimpan!';
+            return response($res, 400);
+        }
+    }
+
+    public function put_krisar(Request $request, $nim) {
+        $isi_krisar = $request->input('isi_krisar');
+
+        $put = Krisar::find($nim);
+
+        $put->isi_krisar = $isi_krisar;
+
+        if ($put->save()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Memperbarui!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Memperbarui!';
+            return response($res, 400);
+        }
+    }
+
+    public function del_krisar(Request $request, $nim) {
+        $krisar = Krisar::find($nim);
+
+        if ($krisar->delete()) {
+            $res['success'] = true;
+            $res['message'] = 'Sukses Menghapus!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Gagal Menghapus!';
+            return response($res, 400);
+        }
+    }
+
+    public function get_krisar(Request $request, $nim) {
+        $krisar = Krisar::where('nim', $nim)->get();
+        if ($krisar) {
+            $res['success'] = true;
+            $res['message'] = $krisar;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Pekerjaan!';
+
+            return response($res, 400);
+        }
+    }
+
+    public function get_all_krisar(Request $request) {
+        $krisar = Krisar::all();
+        if ($krisar) {
+            $res['success'] = true;
+            $res['message'] = $krisar;
+
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find Pekerjaan!';
+
+            return response($res, 400);
+        }
+    }
+
+    public function get_detail(Request $request, $nim) {
+        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto', 'krisar')->where('nim', $nim)->firstOrFail();
         if ($mhs) {
             $res['success'] = true;
             $res['message'] = $mhs;
