@@ -502,7 +502,37 @@ class MahasiswaController extends Controller {
         $rows = \Excel::load($request->file('mahasiswa'), function ($reader) {
         })->get();
 
-        return response()->json(compact('rows'));
+        $rowYangBerhasil = [];
+
+        foreach ($rows as $key => $row) {
+            if (!Mahasiswa::where('nim', $row->nim)->count()) {
+                # insert mahasiswa
+                Mahasiswa::create([
+                    'nim' => $row->nim,
+                    'nama' => $row->nama,
+                    'alamat' => $row->alamat,
+                    'no_telepon' => $row->no_telp,
+                    'tempat_lahir' => $row->tempat_lahir,
+                    'tanggal_lahir' => $row->tanggal_lahir
+                ]);
+
+                $rowYangBerhasil[] = $row;
+            }
+
+            if (!Akademik::find($row->nim)) {
+                Akademik::create([
+                    'nim' => $row->nim,
+                    'prodi' => str_slug($row->prodi),
+                    'angkatan_wisuda' => $row->angkatan_wisuda,
+                    'tanggal_lulus' => $row->tanggal_lulus,
+                    'nilai_ipk' => $row->nilai_ipk,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'rows' => $rowYangBerhasil
+        ]);
     }
 
     public function semua(Request $request)
