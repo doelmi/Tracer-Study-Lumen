@@ -507,7 +507,7 @@ class MahasiswaController extends Controller {
 
     public function semua(Request $request)
     {
-        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto')->orderBy('nim')->paginate(10)->appends($request->all());
+        $mhs = Mahasiswa::with('akademik', 'pekerjaan', 'foto', 'krisar')->orderBy('nim')->paginate(10)->appends($request->all());
         if ($mhs) {
             $res['success'] = true;
             $res['message'] = $mhs;
