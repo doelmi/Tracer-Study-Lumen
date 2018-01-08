@@ -188,10 +188,10 @@ php -S 0.0.0.0:8000 -t public
   </li>
   </li>
   <li>
-      Get Semua Mahasiswa Pekerjaan
+      Get Detail Semua Mahasiswa
       <br>Method : Get
       <br>Parameter : 
-      <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan?api_token={api_token}
+      <br>Address : http://localhost:8000/api/v1/mahasiswa/semua?api_token={api_token}
   </li>
   <li>
       Insert Prodi
@@ -274,7 +274,7 @@ php -S 0.0.0.0:8000 -t public
   </li>
 </ol>
 
-{api_token} didapatkan dari proses "Login"
+{api_token} didapatkan dari proses "Login" <br>
 {api_token_mhs} didapatkan dari proses "Login Akun Mahasiswa"
 
 
