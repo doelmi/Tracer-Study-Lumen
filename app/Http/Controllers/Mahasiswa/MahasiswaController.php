@@ -603,9 +603,9 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         ]);
     }
 
-    public function semua(Request $request) {
+    public function index (Request $request) {
 
-        $mhs = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'foto', 'krisar')->orderBy('nim')->paginate(10)->appends($request->all());
+        $mhs = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'foto')->search($request)->orderBy('nim')->paginate(100)->appends($request->all());
 
         if ($request->has('export') && $request->export === 'excel') {
             return \Excel::create('mahasiswa', function ($excel) {

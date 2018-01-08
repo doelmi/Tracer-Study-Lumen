@@ -51,7 +51,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
     $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth', 'namespace' => 'Mahasiswa'], function($router) {
 
         # get semua data
-        $router->get('/semua', 'MahasiswaController@semua');
+        $router->get('/', 'MahasiswaController@index');
         //Pribadi
         $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']); 
         $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']); 

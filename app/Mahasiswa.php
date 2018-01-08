@@ -54,4 +54,26 @@ class Mahasiswa extends Model implements AuthenticatableContract, AuthorizableCo
         return $this->hasOne('App\Mahasiswa_Login', 'nim');
     }
 
+    public function scopeSearch($query, $request)
+    {
+        if ($request->has('q')) {
+            $query->where(function ($query) use ($request) {
+                $query->orWhere('nim', 'like', "%{$request->q}%");
+                $query->orWhere('nama', 'like', "%{$request->q}%");
+            });
+        }
+
+        if ($request->has('prodi')) {
+            $query->whereHas('akademik', function ($query) use ($request) {
+                $query->where('prodi', 'like', "%{$request->prodi}%");
+            });
+        }
+
+        if ($request->has('angkatan_wisuda')) {
+            $query->whereHas('akademik', function ($query) use ($request) {
+                $query->where('angkatan_wisuda', 'like', "%{$request->angkatan_wisuda}%");
+            });
+        }
+    }
+
 }
