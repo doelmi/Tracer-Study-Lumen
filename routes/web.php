@@ -66,11 +66,11 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->delete('/akademik/{nim}', ['uses' => 'MahasiswaAkademikController@destroy']);
 
         //Pekerjaan
-        $router->post('/pekerjaan', ['uses' => 'MahasiswaController@set_pekerjaan']);
-        $router->put('/pekerjaan/{nim}', ['uses' => 'MahasiswaController@put_pekerjaan']);
-        $router->delete('/pekerjaan/{nim}', ['uses' => 'MahasiswaController@del_pekerjaan']);
-        $router->get('/pekerjaan/{nim}', ['uses' => 'MahasiswaController@get_pekerjaan']);
-        $router->get('/pekerjaan', ['uses' => 'MahasiswaController@get_all_pekerjaan']);
+        $router->get('/pekerjaan', ['uses' => 'MahasiswaPekerjaanController@index']);
+        $router->get('/pekerjaan/{nim}', ['uses' => 'MahasiswaPekerjaanController@show']);
+        $router->post('/pekerjaan', ['uses' => 'MahasiswaPekerjaanController@store']);
+        $router->put('/pekerjaan/{nim}', ['uses' => 'MahasiswaPekerjaanController@update']);
+        $router->delete('/pekerjaan/{nim}', ['uses' => 'MahasiswaPekerjaanController@destroy']);
 
         //Foto
         $router->get('/foto', ['uses' => 'MahasiswaFotoController@index']);
