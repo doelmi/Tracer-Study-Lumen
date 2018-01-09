@@ -5,25 +5,11 @@ namespace App\Http\Controllers\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Mahasiswa;
 use App\Akademik;
-use App\Foto;
 use App\Pekerjaan;
 use App\Mahasiswa_Login;
 use App\Krisar;
 
 class MahasiswaController extends \App\Http\Controllers\Controller {
-
-    public function base64ToImage($imageData, $nim) {
-        list($type, $imageData) = explode(';', $imageData);
-        list(, $extension) = explode('/', $type);
-        list(, $imageData) = explode(',', $imageData);
-        $fileName = $nim . '_' . uniqid() . '.' . $extension;
-        $path = "assets/img/$fileName";
-        $imageData = base64_decode($imageData);
-        file_put_contents($path, $imageData);
-
-        $link_path = $path;
-        return $link_path;
-    }
 
     public function put_akun(Request $request, $nim) {
         $password = $request->input('password');
@@ -201,95 +187,6 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         } else {
             $res['success'] = false;
             $res['message'] = 'Cannot find Mahasiswa!';
-
-            return response($res, 400);
-        }
-    }
-
-    public function set_foto(Request $request) {
-        $nim = $request->input('nim');
-        $foto = $request->input('foto');
-
-        if (strlen($foto) != 0) {
-            $foto = $this->base64ToImage($foto, $nim);
-        }
-
-        $set = Foto::create([
-                    'nim' => $nim,
-                    'foto' => $foto
-        ]);
-        if ($set) {
-            $res['success'] = true;
-            $res['message'] = 'Sukses Menyimpan!';
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Gagal Menyimpan!';
-            return response($res, 400);
-        }
-    }
-
-    public function put_foto(Request $request, $nim) {
-        $foto = $request->input('foto');
-
-        if (strlen($foto) != 0) {
-            $foto = $this->base64ToImage($foto, $nim);
-        }
-
-        $put = Foto::find($nim);
-
-        $put->foto = $foto;
-
-        if ($put->save()) {
-            $res['success'] = true;
-            $res['message'] = 'Sukses Memperbarui!';
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Gagal Memperbarui!';
-            return response($res, 400);
-        }
-    }
-
-    public function del_foto(Request $request, $nim) {
-        $mhs_foto = Foto::find($nim);
-
-        if ($mhs_foto->delete()) {
-            $res['success'] = true;
-            $res['message'] = 'Sukses Menghapus!';
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Gagal Menghapus!';
-            return response($res, 400);
-        }
-    }
-
-    public function get_foto(Request $request, $nim) {
-        $get_foto = Foto::where('nim', $nim)->get();
-        if ($get_foto) {
-            $res['success'] = true;
-            $res['message'] = $get_foto;
-
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Cannot find Foto!';
-
-            return response($res, 400);
-        }
-    }
-
-    public function get_all_foto(Request $request) {
-        $get_foto = Foto::all();
-        if ($get_foto) {
-            $res['success'] = true;
-            $res['message'] = $get_foto;
-
-            return response($res);
-        } else {
-            $res['success'] = false;
-            $res['message'] = 'Cannot find Foto!';
 
             return response($res, 400);
         }

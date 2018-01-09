@@ -36,6 +36,19 @@ class Foto extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
     protected $appends = ['foto_src'];
 
+    public static function base64ToImage($imageData, $nim) {
+        list($type, $imageData) = explode(';', $imageData);
+        list(, $extension) = explode('/', $type);
+        list(, $imageData) = explode(',', $imageData);
+        $fileName = $nim . '_' . uniqid() . '.' . $extension;
+        $path = "assets/img/$fileName";
+        $imageData = base64_decode($imageData);
+        file_put_contents($path, $imageData);
+
+        $link_path = $path;
+        return $link_path;
+    }
+
     public function getFotoSrcAttribute() {
         return url($this->foto);
     }

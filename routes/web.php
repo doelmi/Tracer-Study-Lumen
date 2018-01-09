@@ -73,11 +73,11 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('/pekerjaan', ['uses' => 'MahasiswaController@get_all_pekerjaan']);
 
         //Foto
-        $router->post('/foto', ['uses' => 'MahasiswaController@set_foto']);
-        $router->put('/foto/{nim}', ['uses' => 'MahasiswaController@put_foto']);
-        $router->delete('/foto/{nim}', ['uses' => 'MahasiswaController@del_foto']);
-        $router->get('/foto/{nim}', ['uses' => 'MahasiswaController@get_foto']);
-        $router->get('/foto', ['uses' => 'MahasiswaController@get_all_foto']);
+        $router->get('/foto', ['uses' => 'MahasiswaFotoController@index']);
+        $router->get('/foto/{nim}', ['uses' => 'MahasiswaFotoController@show']);
+        $router->post('/foto', ['uses' => 'MahasiswaFotoController@store']);
+        $router->put('/foto/{nim}', ['uses' => 'MahasiswaFotoController@update']);
+        $router->delete('/foto/{nim}', ['uses' => 'MahasiswaFotoController@destroy']);
 
         # import excel
         $router->post('import-excel', 'MahasiswaController@import_excel');
