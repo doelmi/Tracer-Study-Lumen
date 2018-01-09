@@ -32,13 +32,14 @@ class MahasiswaAkademikController extends \App\Http\Controllers\Controller {
     $tanggal_lulus = $request->input('tanggal_lulus');
     $nilai_ipk = $request->input('nilai_ipk');
 
-    $set = Akademik::create([
-                'nim' => $nim,
-                'prodi' => $prodi,
-                'angkatan_wisuda' => $angkatan_wisuda,
-                'tanggal_lulus' => $tanggal_lulus,
-                'nilai_ipk' => $nilai_ipk
-    ]);
+    $set = Akademik::findOrNew($request->nim);
+
+    $set->nim = $nim;
+    $set->prodi = $prodi;
+    $set->angkatan_wisuda = $angkatan_wisuda;
+    $set->tanggal_lulus = $tanggal_lulus;
+    $set->nilai_ipk = $nilai_ipk;
+
     if ($set) {
         $res['success'] = true;
         $res['message'] = 'Sukses Menyimpan!';
