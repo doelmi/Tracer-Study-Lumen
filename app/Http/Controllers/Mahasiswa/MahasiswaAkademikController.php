@@ -38,6 +38,7 @@ class MahasiswaAkademikController extends \App\Http\Controllers\Controller {
     $set->angkatan_wisuda = $angkatan_wisuda;
     $set->tanggal_lulus = $tanggal_lulus;
     $set->nilai_ipk = $nilai_ipk;
+    $set->save();
 
     if ($set) {
         $res['success'] = true;
@@ -74,7 +75,7 @@ class MahasiswaAkademikController extends \App\Http\Controllers\Controller {
     $tanggal_lulus = $request->input('tanggal_lulus');
     $nilai_ipk = $request->input('nilai_ipk');
 
-    $set = Akademik::find($nim);
+    $set = Akademik::findOrNew($nim);
     $set->nim = $nim;
     $set->prodi = $prodi;
     $set->angkatan_wisuda = $angkatan_wisuda;

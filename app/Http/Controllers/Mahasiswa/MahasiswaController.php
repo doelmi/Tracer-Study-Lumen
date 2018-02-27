@@ -98,11 +98,7 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         $set->save();
 
         //buat akun mahasiswa
-        if (Mahasiswa_Login::find($nim)) {
-            $set_akun = Mahasiswa_Login::find($nim);
-        } else {
-            $set_akun = new Mahasiswa_Login;
-        }
+        $set_akun = Mahasiswa_Login::findOrNew($nim);
         $set_akun->nim = $nim;
         $set_akun->password = null;
         $set_akun->save();
@@ -311,6 +307,11 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
 
                 $rowYangBerhasil[] = $row;
             }
+            
+            $set_akun = Mahasiswa_Login::findOrNew($row->nim);
+            $set_akun->nim = $row->nim;
+            $set_akun->password = null;
+            $set_akun->save();            
 
             if (!Akademik::find($row->nim)) {
                 Akademik::create([
@@ -379,6 +380,11 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
 
             return response($res, 400);
         }
+    }
+
+    public function importDetail($nim)
+    {
+        $mahasiswa = Mahasiswa::with('akademik', 'pekerjaan')->findOrFail($nim);
     }
 
 }
