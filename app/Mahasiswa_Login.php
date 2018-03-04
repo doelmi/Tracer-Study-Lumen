@@ -35,4 +35,8 @@ class Mahasiswa_Login extends Model implements AuthenticatableContract, Authoriz
         'password', 'api_token_mhs'
     ];
 
+    public function mahasiswa()
+    {
+        return $this->belongsTo('mahasiswa', 'nim');
+    }
 }
