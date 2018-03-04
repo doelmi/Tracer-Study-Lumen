@@ -35,8 +35,15 @@ class Mahasiswa_Login extends Model implements AuthenticatableContract, Authoriz
         'password', 'api_token_mhs'
     ];
 
+    protected $appends = ['need_to_change_password'];
+
     public function mahasiswa()
     {
         return $this->belongsTo('mahasiswa', 'nim');
+    }
+
+    public function getNeedToChangePasswordAttribute()
+    {
+        return !((bool) $this->password);
     }
 }
