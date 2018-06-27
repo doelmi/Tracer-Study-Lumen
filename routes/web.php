@@ -104,7 +104,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
             $router->put('/password', ['uses' => 'MahasiswaAkunController@put_mhs_akun']);
             $router->put('/pribadi', ['uses' => 'MahasiswaAkunController@put_mhs']);
             $router->put('/akademik', ['uses' => 'MahasiswaAkunController@put_akademik']);
-            $router->put('/foto', ['uses' => 'MahasiswaAkunController@put_foto']);
+            $router->post('/foto', ['uses' => 'MahasiswaAkunController@put_foto']);
             $router->put('/krisar', ['uses' => 'MahasiswaAkunController@put_krisar']);
             $router->put('/pekerjaan', ['uses' => 'MahasiswaAkunController@put_pekerjaan']);
         });

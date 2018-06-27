@@ -238,7 +238,7 @@ class MahasiswaAkunController extends \App\Http\Controllers\Controller {
                 $foto = $this->base64ToImage($foto, $nim);
             }
 
-            $put = Foto::find($nim);
+            $put = Foto::findOrNew($nim);
 
             $put->foto = $foto;
 
@@ -266,10 +266,10 @@ class MahasiswaAkunController extends \App\Http\Controllers\Controller {
             $status_pekerjaan = $request->input('status_pekerjaan');
             $keterangan = $request->input('keterangan');
 
-            $put = Pekerjaan::find($nim);
+            $put = Pekerjaan::findOrNew($nim);
 
             $put->status_pekerjaan = $status_pekerjaan;
-            $put->keterangan = $keterangan;
+            $put->keterangan = json_encode($keterangan);
 
             if ($put->save()) {
                 $res['success'] = true;
