@@ -240,6 +240,7 @@ class MahasiswaAkunController extends \App\Http\Controllers\Controller {
 
             $put = Foto::findOrNew($nim);
 
+            $put->nim = $nim;
             $put->foto = $foto;
 
             if ($put->save()) {
@@ -268,6 +269,7 @@ class MahasiswaAkunController extends \App\Http\Controllers\Controller {
 
             $put = Pekerjaan::findOrNew($nim);
 
+            $put->nim = $nim;
             $put->status_pekerjaan = $status_pekerjaan;
             $put->keterangan = json_encode($keterangan);
 
