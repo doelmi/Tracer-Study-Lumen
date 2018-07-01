@@ -356,13 +356,13 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
                                     $row->email,
                                     $row->tempat_lahir,
                                     $row->tanggal_lahir,
-                                    strtoupper($row->akademik->prodi),
-                                    $row->akademik->angkatan_wisuda,
-                                    $row->akademik->tanggal_lulus,
-                                    $row->akademik->nilai_ipk,
-                                    strtoupper($row->pekerjaan->status_pekerjaan),
-                                    json_encode($row->pekerjaan->keterangan),
-                                    $row->krisar->isi_krisar,
+                                    strtoupper(@$row->akademik->prodi),
+                                    @$row->akademik->angkatan_wisuda,
+                                    @$row->akademik->tanggal_lulus,
+                                    @$row->akademik->nilai_ipk,
+                                    strtoupper(@$row->pekerjaan->status_pekerjaan),
+                                    json_encode(@$row->pekerjaan->keterangan),
+                                    @$row->krisar->isi_krisar,
                                 ]);
                             }
                         });
