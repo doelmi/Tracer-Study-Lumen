@@ -34,4 +34,8 @@ class Krisar extends Model implements AuthenticatableContract, AuthorizableContr
     protected $hidden = [
     ];
 
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'nim');
+    }
 }
