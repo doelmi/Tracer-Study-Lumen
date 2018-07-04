@@ -255,7 +255,7 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
     }
 
     public function get_all_krisar(Request $request) {
-        $krisar = Krisar::with('mahasiswa')->get();
+        $krisar = Krisar::with('mahasiswa')->latest()->get();
         if ($krisar) {
             $res['success'] = true;
             $res['message'] = $krisar;

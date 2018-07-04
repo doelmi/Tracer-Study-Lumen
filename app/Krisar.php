@@ -26,6 +26,10 @@ class Krisar extends Model implements AuthenticatableContract, AuthorizableContr
         'nim', 'isi_krisar'
     ];
 
+    protected $appends = [
+        'created_at_for_humans'
+    ];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -37,5 +41,10 @@ class Krisar extends Model implements AuthenticatableContract, AuthorizableContr
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class, 'nim');
+    }
+
+    public function getCreatedAtForHumansAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }
