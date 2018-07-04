@@ -7,6 +7,7 @@ use App\Mahasiswa;
 use App\Akademik;
 use App\Foto;
 use App\Pekerjaan;
+use App\Krisar;
 use App\Mahasiswa_Login;
 
 class MahasiswaAkunController extends \App\Http\Controllers\Controller {
@@ -297,8 +298,9 @@ class MahasiswaAkunController extends \App\Http\Controllers\Controller {
 
             $isi_krisar = $request->input('isi_krisar');
 
-            $put = Krisar::find($nim);
+            $put = Krisar::findOrNew($nim);
 
+            $put->nim = $nim;
             $put->isi_krisar = $isi_krisar;
 
             if ($put->save()) {
