@@ -13,9 +13,12 @@ untuk migrasi database, jalankan perintah berikut:
 ```
 php artisan migrate
 ```
+```
+php artisan db:seed
+```
 
 ## Running
-untuk menjalankan gunakan perintah berikut : 
+untuk menjalankan gunakan perintah berikut :
 
 ```
 php -S 0.0.0.0:8000 -t public
@@ -25,13 +28,13 @@ php -S 0.0.0.0:8000 -t public
 ## Routing
 <ol>
    <li>
-    Lumen Information 
+    Lumen Information
     <br>Method : Get
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1
   </li>
   <li>
-    Login 
+    Login
     <br>Method : Post
     <br>Parameter : email, password
     <br>Address : http://localhost:8000/api/v1/login
@@ -45,19 +48,19 @@ php -S 0.0.0.0:8000 -t public
   <li>
     Get User Data berdasarkan ID
     <br>Method : Get
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/user/{id}?api_token={api_token}
   </li>
   <li>
     Get Semua User Data
     <br>Method : Get
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/user?api_token={api_token}
   </li>
   <li id="logged_in">
     Get Logged in User Data
     <br>Method : Get
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/user/logged_in/{token}?api_token={api_token}
   </li>
   <li>
@@ -75,19 +78,19 @@ php -S 0.0.0.0:8000 -t public
   <li>
      Delete Mahasiswa Pribadi
     <br>Method : Delete
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi/{nim}?api_token={api_token}
   </li>
   <li>
       Get Mahasiswa Pribadi berdasarkan NIM
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi/{nim}?api_token={api_token}
   </li>
   <li>
       Get Semua Mahasiswa Pribadi
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/pribadi?api_token={api_token}
   </li>
   <li>
@@ -105,19 +108,19 @@ php -S 0.0.0.0:8000 -t public
   <li>
      Delete Mahasiswa Akademik
     <br>Method : Delete
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik/{nim}?api_token={api_token}
   </li>
   <li>
       Get Mahasiswa Akademik berdasarkan NIM
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik/{nim}?api_token={api_token}
   </li>
   <li>
       Get Semua Mahasiswa Akademik
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/akademik?api_token={api_token}
   </li>
   <li>
@@ -135,19 +138,19 @@ php -S 0.0.0.0:8000 -t public
   <li>
      Delete Mahasiswa Foto
     <br>Method : Delete
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/mahasiswa/foto/{nim}?api_token={api_token}
   </li>
   <li>
       Get Mahasiswa Foto berdasarkan NIM
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/foto/{nim}?api_token={api_token}
   </li>
   <li>
       Get Semua Mahasiswa Foto
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/foto?api_token={api_token}
   </li>
   <li>
@@ -165,19 +168,19 @@ php -S 0.0.0.0:8000 -t public
   <li>
      Delete Mahasiswa Pekerjaan
     <br>Method : Delete
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan/{nim}?api_token={api_token}
   </li>
   <li>
       Get Mahasiswa Pekerjaan berdasarkan NIM
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan/{nim}?api_token={api_token}
   </li>
   <li>
      Get Semua Mahasiswa Pekerjaan
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/pekerjaan?api_token={api_token}
   </li>
   <li>
@@ -189,32 +192,32 @@ php -S 0.0.0.0:8000 -t public
   <li>
      Delete Mahasiswa Auth
     <br>Method : Delete
-    <br>Parameter : 
+    <br>Parameter :
     <br>Address : http://localhost:8000/api/v1/mahasiswa/auth/{nim}?api_token={api_token}
   </li>
   <li>
       Get Mahasiswa Auth berdasarkan NIM
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/auth/{nim}?api_token={api_token}
   </li>
   <li>
      Get Semua Mahasiswa Auth
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/auth?api_token={api_token}
   </li>
   <li>
      Get Mahasiswa Semua Detail berdasarkan NIM
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/detail/{nim}
   </li>
   </li>
   <li>
       Get Detail Semua Mahasiswa
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/semua?api_token={api_token}
   </li>
   <li>
@@ -226,25 +229,25 @@ php -S 0.0.0.0:8000 -t public
   <li>
       Update Prodi
       <br>Method : Put
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/prodi/{id}?api_token={api_token}
   </li>
   <li>
       Delete Prodi
       <br>Method : Delete
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/prodi/{id}?api_token={api_token}
   </li>
   <li>
       Get Prodi berdasarkan ID
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/prodi/{id}?api_token={api_token}
   </li>
   <li>
       Get Semua Prodi
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/prodi?api_token={api_token}
   </li>
   <li>
@@ -257,13 +260,13 @@ php -S 0.0.0.0:8000 -t public
       Cek Token Akun Mahasiswa
       <br>Keterangan : Mengecek apakah token ini masih berfungsi atau tidak.
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/cek_token?api_token_mhs={api_token_mhs}
   </li>
   <li>
       Get Detail Mahasiswa yang Login
       <br>Method : Get
-      <br>Parameter : 
+      <br>Parameter :
       <br>Address : http://localhost:8000/api/v1/mahasiswa/akun/detail?api_token_mhs={api_token_mhs}
   </li>
   <li>
@@ -306,5 +309,3 @@ php -S 0.0.0.0:8000 -t public
 
 {api_token} didapatkan dari proses "Login" <br>
 {api_token_mhs} didapatkan dari proses "Login Akun Mahasiswa"
-
-
