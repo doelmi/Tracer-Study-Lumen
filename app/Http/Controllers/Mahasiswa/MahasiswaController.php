@@ -9,9 +9,10 @@ use App\Pekerjaan;
 use App\Mahasiswa_Login;
 use App\Krisar;
 
-class MahasiswaController extends \App\Http\Controllers\Controller {
-
-    public function put_akun(Request $request, $nim) {
+class MahasiswaController extends \App\Http\Controllers\Controller
+{
+    public function put_akun(Request $request, $nim)
+    {
         $password = $request->input('password');
 
         $mhs = Mahasiswa_Login::find($nim);
@@ -29,7 +30,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function del_akun(Request $request, $nim) {
+    public function del_akun(Request $request, $nim)
+    {
         $mhs = Mahasiswa_Login::find($nim);
 
         if ($mhs->delete()) {
@@ -43,7 +45,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function get_akun(Request $request, $nim) {
+    public function get_akun(Request $request, $nim)
+    {
         $mhs = Mahasiswa_Login::where('nim', $nim)->get();
         if ($mhs) {
             $res['success'] = true;
@@ -58,7 +61,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function get_all_akun(Request $request) {
+    public function get_all_akun(Request $request)
+    {
         $mhs = Mahasiswa_Login::all();
         if ($mhs) {
             $res['success'] = true;
@@ -73,7 +77,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function set_mhs(Request $request) {
+    public function set_mhs(Request $request)
+    {
         $nim = $request->input('nim');
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
@@ -81,11 +86,14 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         $tempat_lahir = $request->input('tempat_lahir');
         $tanggal_lahir = $request->input('tanggal_lahir');
         $email = $request->input('email');
+        $newMhs = false;
 
         if (Mahasiswa::find($nim)) {
             $set = Mahasiswa::find($nim);
+            $newMhs = false;
         } else {
             $set = new Mahasiswa;
+            $newMhs = true;
         }
 
         $set->nim = $nim;
@@ -98,10 +106,13 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         $set->save();
 
         //buat akun mahasiswa
-        $set_akun = Mahasiswa_Login::findOrNew($nim);
-        $set_akun->nim = $nim;
-        $set_akun->password = null;
-        $set_akun->save();
+        $set_akun = true;
+        if ($newMhs) {
+            $set_akun = Mahasiswa_Login::findOrNew($nim);
+            $set_akun->nim = $nim;
+            $set_akun->password = null;
+            $set_akun->save();
+        }
 
         if ($set && $set_akun) {
             $res['success'] = true;
@@ -114,7 +125,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function put_mhs(Request $request, $nim) {
+    public function put_mhs(Request $request, $nim)
+    {
         $new_nim = $request->input('nim');
         $nama = $request->input('nama');
         $alamat = $request->input('alamat');
@@ -144,7 +156,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function del_mhs(Request $request, $nim) {
+    public function del_mhs(Request $request, $nim)
+    {
         $mhs = Mahasiswa::find($nim);
 
         if ($mhs->delete()) {
@@ -158,7 +171,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function get_mhs(Request $request, $nim) {
+    public function get_mhs(Request $request, $nim)
+    {
         $mhs = Mahasiswa::where('nim', $nim)->get();
         if ($mhs) {
             $res['success'] = true;
@@ -173,7 +187,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function get_all_mhs(Request $request) {
+    public function get_all_mhs(Request $request)
+    {
         $mhs = Mahasiswa::all();
         if ($mhs) {
             $res['success'] = true;
@@ -186,9 +201,10 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
 
             return response($res, 400);
         }
-    }    
+    }
 
-    public function set_krisar(Request $request) {
+    public function set_krisar(Request $request)
+    {
         $nim = $request->input('nim');
         $isi_krisar = $request->input('isi_krisar');
 
@@ -207,7 +223,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function put_krisar(Request $request, $nim) {
+    public function put_krisar(Request $request, $nim)
+    {
         $isi_krisar = $request->input('isi_krisar');
 
         $put = Krisar::find($nim);
@@ -225,7 +242,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function del_krisar(Request $request, $nim) {
+    public function del_krisar(Request $request, $nim)
+    {
         $krisar = Krisar::find($nim);
 
         if ($krisar->delete()) {
@@ -239,7 +257,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function get_krisar(Request $request, $nim) {
+    public function get_krisar(Request $request, $nim)
+    {
         $krisar = Krisar::where('nim', $nim)->get();
         if ($krisar) {
             $res['success'] = true;
@@ -254,7 +273,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function get_all_krisar(Request $request) {
+    public function get_all_krisar(Request $request)
+    {
         $krisar = Krisar::with('mahasiswa')->latest()->get();
         if ($krisar) {
             $res['success'] = true;
@@ -269,7 +289,8 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function get_detail(Request $request, $nim) {
+    public function get_detail(Request $request, $nim)
+    {
         $mhs = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'foto', 'krisar')->where('nim', $nim)->firstOrFail();
         if ($mhs) {
             $res['success'] = true;
@@ -284,10 +305,10 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         }
     }
 
-    public function import_excel(Request $request) {
+    public function import_excel(Request $request)
+    {
         $rows = \Excel::load($request->file('mahasiswa'), function ($reader) {
-                    
-                })->get();
+        })->get();
 
         $rowYangBerhasil = [];
 
@@ -307,11 +328,11 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
 
                 $rowYangBerhasil[] = $row;
             }
-            
+
             $set_akun = Mahasiswa_Login::findOrNew($row->nim);
             $set_akun->nim = $row->nim;
             $set_akun->password = null;
-            $set_akun->save();            
+            $set_akun->save();
 
             if (!Akademik::find($row->nim)) {
                 Akademik::create([
@@ -329,25 +350,25 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
         ]);
     }
 
-    public function index (Request $request) {
-
+    public function index(Request $request)
+    {
         $mhs = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'foto')->search($request)->orderBy('nim')->paginate(100)->appends($request->all());
 
         if ($request->has('export') && $request->export === 'excel') {
             return \Excel::create('mahasiswa', function ($excel) {
-                        $excel->setTitle('Data Alumni Fakultas Teknik');
-                        $excel->setCreator('Fakultas Teknik');
+                $excel->setTitle('Data Alumni Fakultas Teknik');
+                $excel->setCreator('Fakultas Teknik');
 
-                        $excel->sheet('sheet 1', function ($sheet) {
-                            $mahasiswa = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'krisar')->get();
-                            $sheet->appendRow([
+                $excel->sheet('sheet 1', function ($sheet) {
+                    $mahasiswa = Mahasiswa::with('mahasiswa_login', 'akademik', 'pekerjaan', 'krisar')->get();
+                    $sheet->appendRow([
                                 'Nim', 'Nama', 'Email', 'Alamat', 'No Telp', 'Email', 'Tempat Lahir', 'Tanggal Lahir',
                                 'Prodi', 'Angkatan Wisuda', 'Tanggal Lulus', 'Nilai IPK',
                                 'Status Pekerjaan', 'Keterangan', 'Kritik dan Saran'
                             ]);
 
-                            foreach ($mahasiswa as $key => $row) {
-                                $sheet->appendRow([
+                    foreach ($mahasiswa as $key => $row) {
+                        $sheet->appendRow([
                                     $row->nim,
                                     $row->nama,
                                     $row->email,
@@ -364,9 +385,9 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
                                     json_encode(@$row->pekerjaan->keterangan),
                                     @$row->krisar->isi_krisar,
                                 ]);
-                            }
-                        });
-                    })->export('xlsx');
+                    }
+                });
+            })->export('xlsx');
         }
 
         if ($mhs) {
@@ -386,5 +407,4 @@ class MahasiswaController extends \App\Http\Controllers\Controller {
     {
         $mahasiswa = Mahasiswa::with('akademik', 'pekerjaan')->findOrFail($nim);
     }
-
 }
