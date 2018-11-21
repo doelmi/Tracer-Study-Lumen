@@ -42,12 +42,15 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('/', 'MahasiswaController@index');
     });
     
+    $router->group(['prefix' => 'prodi'], function($router) {
+        $router->get('/{id}', ['uses' => 'ProdiController@get_prodi']);
+        $router->get('/', ['uses' => 'ProdiController@get_all_prodi']);
+    });
+  
     $router->group(['prefix' => 'prodi', 'middleware' => 'auth'], function($router) {
         $router->post('/', ['uses' => 'ProdiController@set_prodi']); 
         $router->put('/{id}', ['uses' => 'ProdiController@put_prodi']); 
         $router->delete('/{id}', ['uses' => 'ProdiController@del_prodi']);
-        $router->get('/{id}', ['uses' => 'ProdiController@get_prodi']);
-        $router->get('/', ['uses' => 'ProdiController@get_all_prodi']);
     });
     
     $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth', 'namespace' => 'Mahasiswa'], function($router) {
