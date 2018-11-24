@@ -315,7 +315,7 @@ class MahasiswaController extends \App\Http\Controllers\Controller
         foreach ($rows as $key => $row) {
             if (!Mahasiswa::where('nim', $row->nim)->count()) {
                 # insert mahasiswa
-                Mahasiswa::create([
+                $insert = Mahasiswa::create([
                     'nim' => $row->nim,
                     'nama' => $row->nama,
                     'email' => $row->email,
@@ -326,7 +326,14 @@ class MahasiswaController extends \App\Http\Controllers\Controller
                     'tanggal_lahir' => $row->tanggal_lahir
                 ]);
 
-                $rowYangBerhasil[] = $row;
+                if ($insert) {
+                  // code...
+                  $rowYangBerhasil[] = $row;
+                }else{
+                  $res['success'] = false;
+                  $res['message'] = 'Gagal Menyimpan!';
+                  return response($res, 400);
+                }
             }
 
             $set_akun = Mahasiswa_Login::findOrNew($row->nim);
