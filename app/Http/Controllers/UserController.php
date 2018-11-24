@@ -72,4 +72,36 @@ class UserController extends Controller {
         }
     }
 
+    public function put_user(Request $request, $id) {
+        $hasher = app()->make('hash');
+        $username = $request->input('username');
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        if ($password) {
+          $password = $hasher->make($password);
+        }
+
+        $user = User::find($id);
+
+        if ($password) {
+          $user->username = $username;
+          $user->email = $email;
+          $user->password = $password;
+        }else{
+          $user->username = $username;
+          $user->email = $email;
+        }
+
+        if ($user->save()) {
+            $res['success'] = true;
+            $res['message'] = "Berhasil memperbarui!";
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['message'] = 'Cannot find user!';
+            return response($res, 400);
+        }
+    }
+
 }

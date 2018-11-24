@@ -31,6 +31,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
     $router->post('/login', 'LoginController@index');
     $router->post('/register', 'UserController@register');
     $router->get('/user/{id}', ['middleware' => 'auth', 'uses' => 'UserController@get_user']);
+    $router->put('/user/{id}', ['middleware' => 'auth', 'uses' => 'UserController@put_user']);
     $router->get('/user/logged_in/{token}', ['middleware' => 'auth', 'uses' => 'UserController@get_logged_in_user']);
     $router->get('/user', ['middleware' => 'auth', 'uses' => 'UserController@get_all_user']);
 
@@ -41,22 +42,22 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         # get detail mahasiswa, sak fotonya, sak data-data lainnya
         $router->get('/', 'MahasiswaController@index');
     });
-    
+
     $router->group(['prefix' => 'prodi'], function($router) {
         $router->get('/{id}', ['uses' => 'ProdiController@get_prodi']);
         $router->get('/', ['uses' => 'ProdiController@get_all_prodi']);
     });
-  
+
     $router->group(['prefix' => 'prodi', 'middleware' => 'auth'], function($router) {
-        $router->post('/', ['uses' => 'ProdiController@set_prodi']); 
-        $router->put('/{id}', ['uses' => 'ProdiController@put_prodi']); 
+        $router->post('/', ['uses' => 'ProdiController@set_prodi']);
+        $router->put('/{id}', ['uses' => 'ProdiController@put_prodi']);
         $router->delete('/{id}', ['uses' => 'ProdiController@del_prodi']);
     });
-    
+
     $router->group(['prefix' => 'mahasiswa', 'middleware' => 'auth', 'namespace' => 'Mahasiswa'], function($router) {
         //Pribadi
-        $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']); 
-        $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']); 
+        $router->post('/pribadi', ['uses' => 'MahasiswaController@set_mhs']);
+        $router->put('/pribadi/{nim}', ['uses' => 'MahasiswaController@put_mhs']);
         $router->delete('/pribadi/{nim}', ['uses' => 'MahasiswaController@del_mhs']);
         $router->get('/pribadi/{nim}', ['uses' => 'MahasiswaController@get_mhs']);
         $router->get('/pribadi', ['uses' => 'MahasiswaController@get_all_mhs']);
@@ -84,7 +85,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
 
         # import excel
         $router->post('import-excel', 'MahasiswaController@import_excel');
-        
+
         //Krisar
         $router->post('/krisar', ['uses' => 'MahasiswaController@set_krisar']);
         $router->put('/krisar/{nim}', ['uses' => 'MahasiswaController@put_krisar']);
