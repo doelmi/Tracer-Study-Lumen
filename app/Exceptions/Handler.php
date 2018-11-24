@@ -47,10 +47,17 @@ class Handler extends ExceptionHandler
     {
         $response = parent::render($request, $e);
 
+
         if ($request->ajax()) {
             return response()->json($e, $response->status());
         }
-        
-        return $response;
+
+        $msg = [
+            'error' => [
+                'code' => $response->getStatusCode(),
+                'message' => $e->getMessage(),
+            ]
+        ];
+        return response($msg, $response->getStatusCode());
     }
 }
